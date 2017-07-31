@@ -1,0 +1,31 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#656565</item>
+        <item name="colorAccent">#656565</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
+    <style name="ToolbarSubtitle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+    </style>
+
+    <style name="BackTitleBarStyle" parent="DefTitleBarStyle">
+        <item name="leftAsFinish">true</item>
+        <item name="leftIcon">@drawable/icon_title_back_white</item>
+    </style>
+    <style name="DefTitleBarStyle">
+        <item name="backgroundColor">@color/title_background_color</item>
+        <item name="titleColor">@color/title_text_color</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/titlebar_height</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TitleBar">
+        <!-- 标题-->
+        <attr name="title" format="string" />
+        <attr name="titleColor" format="color" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="backgroundDrawable" format="reference" />
+        <!-- 左部栏-->
+        <attr name="leftIcon" format="reference" />
+        <attr name="leftText" format="string" />
+        <attr name="leftTextColor" format="color" />
+        <attr name="leftAsFinish" format="boolean" />
+        <attr name="leftVisible" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="gone" value="0" />
+        </attr>
+        <!-- 右部栏-->
+        <attr name="rightIcon" format="reference" />
+        <attr name="rightText" format="string" />
+        <attr name="rightTextColor" format="color" />
+        <attr name="rightVisible" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="gone" value="0" />
+        </attr>
+        <!-- 右部栏2-->
+        <attr name="rightIcon2" format="reference" />
+        <attr name="rightText2" format="string" />
+        <attr name="rightTextColor2" format="color" />
+        <attr name="rightVisible2" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="gone" value="0" />
+        </attr>
+
+
+        <!-- 底部线-->
+        <attr name="bottomDivider" format="reference" />
+        <attr name="bottomDividerHeight" format="dimension" />
+        <!-- 适配进入到状态栏的情况-->
+        <attr name="fitStatusBar" format="boolean" />
+    </declare-styleable>
+</resources>
