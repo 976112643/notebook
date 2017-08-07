@@ -1,11 +1,14 @@
 package com.wq.common.util
 
+import android.text.format.DateUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.wq.common.base.App
 import com.wq.common.util.FrameworkSetting.LOG_LEVEL
 import com.wq.common.util.LEVEL.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * 扩展方法集
@@ -38,12 +41,41 @@ fun Any._Log(message: Any? = null, level: LEVEL = _D) {
 /**
  * 字符串转Bean
  */
-inline fun <reified T> String.toBean(): T = Gson().fromJson(this,object : TypeToken<T>(){}.type)
+inline fun <reified T> String.toBean(): T = Gson().fromJson(this, object : TypeToken<T>() {}.type)
 
+fun <T> T?.empty(callback: () -> Unit = {}): Boolean {
+    when (true) {
+        this == null,
+        (this is String && this.length == 0),
+        (this is List<*> && this.size == 0),
+        (this is Map<*, *> && this.size == 0),
+        (this is MutableMap<*, *> && this.size == 0),
+        (this is MutableList<*> && this.size == 0),
+        (this is Array<*> && this.size == 0) -> {
+            callback.invoke()
+            return true
+        }
+
+    }
+    return false
+}
+
+fun <T> T?.notEmpty(callback: (T) -> Unit) {
+    if (!this.empty()) callback.invoke(this as T)
+}
+
+fun Long.date():String {
+    try {
+        return SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date(this))
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return ""
+    }
+}
 /**
  * 为所有类扩展上下文字段，即全局上下文
  */
-val Any._CONTEXT: App get() = App._CONTEXT
+val _CONTEXT: App get() = App._CONTEXT
 
 
 
