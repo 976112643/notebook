@@ -1,5 +1,6 @@
 package com.wq.common.db
 
+import com.wq.common.db.mode.NoteTag
 import io.realm.Realm
 import io.realm.RealmObject
 
@@ -20,6 +21,12 @@ fun executeTransaction(transaction: (realm: Realm) -> Unit) {
     }
 }
 
+fun RealmObject.addOrUpdate() {
+    executeTransaction { realm -> realm.insertOrUpdate(this) }
+}
+
+fun String.toNoteTag() = NoteTag(this)
+
 inline fun <reified T : RealmObject> where() = realm.where(T::class.java)
 
 inline fun <reified T : RealmObject> findAll() = where<T>().findAll()
@@ -27,5 +34,5 @@ inline fun <reified T : RealmObject> findAll() = where<T>().findAll()
 /**
  * 给数据库对象字段扩展id生成方法
  */
-@Synchronized fun RealmObject.generateId(): String = (realm.where(this.javaClass).count() + 1).toString()
+inline @Synchronized fun <reified T : RealmObject> T.generateId(): String = (where<T>().count() + 1).toString()
 
