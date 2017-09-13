@@ -2,7 +2,7 @@ package com.wq.common.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import _CONTEXT
+import com.wq.common.util._CONTEXT
 import org.jetbrains.anko.db.*
 
 class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "MyDatabase", null, 1) {
