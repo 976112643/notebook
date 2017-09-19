@@ -1,6 +1,8 @@
 package com.wq.common.db
 
 import com.wq.common.db.mode.NoteTag
+import com.wq.common.util.LEVEL
+import com.wq.common.util._Log
 import io.realm.Realm
 import io.realm.RealmObject
 
@@ -15,9 +17,16 @@ val realm: Realm
  */
 fun executeTransaction(transaction: (realm: Realm) -> Unit) {
     if (realm.isInTransaction) {
-        transaction.invoke(realm)
+        transaction(realm)
     } else {
         realm.executeTransaction(transaction)
+    }
+}
+
+fun <T :RealmObject> T.modify(block:T.()->Unit){
+    executeTransaction{
+        block()
+//        addOrUpdate()
     }
 }
 

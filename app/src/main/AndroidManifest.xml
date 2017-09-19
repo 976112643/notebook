@@ -11,18 +11,19 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity android:name="com.wq.notebook.home.MainActivity">
+        </activity>
+        <activity
+            android:name="com.wq.notebook.home.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme" />
+        <activity android:name="com.wq.notebook.home.NoteListActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.wq.notebook.home.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme" />
-        <activity android:name="com.wq.notebook.home.NoteListActivity" />
-        <activity android:name="com.wq.notebook.home.AddNoteActivity"></activity>
+        <activity android:name="com.wq.notebook.home.AddNoteActivity"/>
     </application>
 
 </manifest>

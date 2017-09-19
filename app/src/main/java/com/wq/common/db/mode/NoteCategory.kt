@@ -8,7 +8,7 @@ import io.realm.annotations.PrimaryKey
  * Created by WQ on 2017/8/3.
  */
 
-class NoteCategory : RealmObject() {
+open class NoteCategory : RealmObject() {
     var addtime: Long = 0
     var updatetime: Long = 0
     @PrimaryKey

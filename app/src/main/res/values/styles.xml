@@ -6,6 +6,7 @@
         <item name="colorAccent">#656565</item>
         <item name="android:textColorPrimary">@android:color/black</item>
         <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <style name="ToolbarSubtitle">

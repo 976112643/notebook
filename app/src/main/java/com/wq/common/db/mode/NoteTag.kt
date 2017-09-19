@@ -8,7 +8,7 @@ import io.realm.annotations.PrimaryKey
  * Created by WQ on 2017/8/3.
  */
 
-class NoteTag : RealmObject {
+open class NoteTag : RealmObject {
     @PrimaryKey
     var _id  = generateId()
     var addtime = System.currentTimeMillis()

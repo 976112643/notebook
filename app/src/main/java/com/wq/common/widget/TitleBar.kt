@@ -166,7 +166,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         bottomLine = get<View>(R.id.bottomLine)
     }
 
-    @JvmOverloads fun setTitle(title: String, @ColorInt textColor: Int = Color.TRANSPARENT): TitleBar {
+    @JvmOverloads fun setTitle(title: String?, @ColorInt textColor: Int = Color.TRANSPARENT): TitleBar {
         if (textColor != Color.TRANSPARENT) {
             this.txtTitle.setTextColor(textColor)
         }
@@ -216,7 +216,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         return this
     }
 
-    fun setLeft(@DrawableRes icon: Int, text: String, @ColorInt color: Int, click: View.OnClickListener?): TitleBar {
+    fun setLeft(@DrawableRes icon: Int, text: String?, @ColorInt color: Int, click: View.OnClickListener?): TitleBar {
         return this.setLeftIcon(icon).setLeftText(text).setLeftTextColor(color).setLeftAction(click)
     }
 
@@ -254,7 +254,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         return this
     }
 
-    fun setRightText2(rightText: String): TitleBar {
+    fun setRightText2(rightText: String?): TitleBar {
         if (TextUtils.isEmpty(rightText)) return this
         btnRight2.visibility = View.VISIBLE
         this.txtRight2.text = rightText
@@ -268,7 +268,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         return this
     }
 
-    fun setRight2(@DrawableRes icon: Int, text: String, @ColorInt color: Int, click: View.OnClickListener?): TitleBar {
+    fun setRight2(@DrawableRes icon: Int, text: String?, @ColorInt color: Int, click: View.OnClickListener?): TitleBar {
         return this.setRightIcon2(icon).setRightText2(text).setRightTextColor2(color).setRightAction2(click)
     }
 

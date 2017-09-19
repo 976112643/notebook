@@ -1,6 +1,6 @@
 package com.wq.common.util
 
-import android.text.format.DateUtils
+import android.content.Intent
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -64,7 +64,7 @@ fun <T> T?.notEmpty(callback: (T) -> Unit) {
     if (!this.empty()) callback.invoke(this as T)
 }
 
-fun Long.date():String {
+fun Long.date(): String {
     try {
         return SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date(this))
     } catch (e: Exception) {
@@ -72,6 +72,19 @@ fun Long.date():String {
         return ""
     }
 }
+
+inline operator fun <reified T> Intent.get(key: String): T {
+    when (T::class.java) {
+        String::class.java -> getStringExtra(key)
+        Int::class.java -> getIntExtra(key, 0)
+        Long::class.java -> getLongExtra(key, 0)
+        Short::class.java -> getShortExtra(key, 0)
+        Byte::class.java -> getByteExtra(key, 0)
+        Boolean::class.java -> getBooleanExtra(key, false)
+    }
+    throw RuntimeException("该类型不支持使用Intent存取")
+}
+
 /**
  * 为所有类扩展上下文字段，即全局上下文
  */

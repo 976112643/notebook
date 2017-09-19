@@ -11,11 +11,11 @@ import io.realm.annotations.PrimaryKey
  * Created by WQ on 2017/8/3.
  */
 
-class Note : RealmObject() {
+open class Note : RealmObject() {
 
     @PrimaryKey
     var _id = generateId()
-    var content: String? = null
+    var content: String =""
     var addtime = System.currentTimeMillis()
     var updatetime = System.currentTimeMillis()
     var tags:RealmList<NoteTag>?=null
