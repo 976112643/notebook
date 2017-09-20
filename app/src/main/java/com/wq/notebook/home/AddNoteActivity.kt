@@ -3,15 +3,13 @@ package com.wq.notebook.home
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import com.lizhuo.kotlinlearning.R
 import com.wq.common.base.BaseActivity
-import com.wq.common.db.addOrUpdate
-import com.wq.common.db.executeTransaction
 import com.wq.common.db.mode.Note
 import com.wq.common.db.modify
 import com.wq.common.db.realm
-import com.wq.common.net.APIManager
-import com.wq.common.util.get
+import com.wq.common.util.ifrun
 import kotlinx.android.synthetic.main.activity_add_note.*
 
 /**
@@ -28,8 +26,17 @@ class AddNoteActivity : BaseActivity() {
                 findFirst()?.
                 apply {
                     note = this
-                    titleBar.setTitle("编辑笔记")
                 }
+        titleBar.ifrun(id!=null){
+            setTitle("编辑笔记")
+            setRightVisible(View.VISIBLE)
+            setRightAction {
+                note.modify {
+                    status=-1
+                    finish()
+                }
+            }
+        }
         editContent.run {
             setText(note.content)
             addTextChangedListener(object : TextWatcher {

@@ -85,6 +85,11 @@ inline operator fun <reified T> Intent.get(key: String): T {
     throw RuntimeException("该类型不支持使用Intent存取")
 }
 
+fun <T> T.ifrun(bool: Boolean = true, block: T.() -> Unit) {
+    if (bool)
+        block()
+}
+
 /**
  * 为所有类扩展上下文字段，即全局上下文
  */

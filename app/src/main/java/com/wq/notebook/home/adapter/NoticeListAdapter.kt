@@ -20,7 +20,7 @@ class NoticeListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R
     }
 
     init {
-        where<Note>().findAllSorted("updatetime", Sort.DESCENDING).apply {
+        where<Note>().notEqualTo("status",-1).findAllSorted("updatetime", Sort.DESCENDING).apply {
             setNewData(this)
             addChangeListener { t, changeSet ->
                 notifyDataSetChanged()

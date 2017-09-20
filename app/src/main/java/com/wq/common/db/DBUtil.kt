@@ -43,5 +43,5 @@ inline fun <reified T : RealmObject> findAll() = where<T>().findAll()
 /**
  * 给数据库对象字段扩展id生成方法
  */
-inline @Synchronized fun <reified T : RealmObject> T.generateId(): String = (where<T>().count() + 1).toString()
+inline @Synchronized fun <reified T : RealmObject> T.generateId(): String = (System.currentTimeMillis()).toString()
 

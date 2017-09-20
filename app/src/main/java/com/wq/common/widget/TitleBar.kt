@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.support.annotation.AttrRes
 import android.support.annotation.ColorInt
@@ -232,7 +231,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         return this
     }
 
-    fun setRightAction(click: View.OnClickListener?): TitleBar {
+    fun setRightAction(click :((View)->Unit)?): TitleBar {
         if (click == null) return this
         btnRight.visibility = View.VISIBLE
         this.btnRight.setOnClickListener(click)
@@ -272,7 +271,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         return this.setRightIcon2(icon).setRightText2(text).setRightTextColor2(color).setRightAction2(click)
     }
 
-    fun setRight(@DrawableRes icon: Int, text: String?, @ColorInt color: Int, click: View.OnClickListener?): TitleBar {
+    fun setRight(@DrawableRes icon: Int, text: String?, @ColorInt color: Int, click: ((View) -> Unit)?): TitleBar {
         return this.setRightIcon(icon).setRightText(text).setRightTextColor(color).setRightAction(click)
     }
 

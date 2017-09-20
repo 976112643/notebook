@@ -11,6 +11,8 @@
     <com.wq.common.widget.TitleBar
         android:id="@+id/titleBar"
         style="@style/BackTitleBarStyle"
+        app:rightTextColor="@color/red"
+        app:rightText="删除"
         app:title="添加笔记" />
 
    <EditText
