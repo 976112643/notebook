@@ -8,6 +8,7 @@ import com.wq.common.db.executeTransaction
 import com.wq.common.db.mode.Note
 import com.wq.common.db.modify
 import com.wq.common.db.realm
+import com.wq.common.net.APIManager
 import com.wq.common.util.get
 import kotlinx.android.synthetic.main.activity_add_note.*
 
@@ -21,13 +22,10 @@ class AddNoteActivity : BaseActivity() {
                 findFirst()?.
                 apply { note=this }
         editContent.setText(note.content)
+        APIManager.request.getCall()
     }
 
     override fun onPause() {
-//        executeTransaction {
-//            realm ->
-//            realm.copyToRealmOrUpdate(note)
-//        }
         note.modify {
             content=editContent.text.toString()
             realm.insertOrUpdate(note)
