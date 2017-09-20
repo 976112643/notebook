@@ -11,7 +11,7 @@
     <com.wq.common.widget.TitleBar
         android:id="@+id/titleBar"
         style="@style/BackTitleBarStyle"
-        app:title="编辑笔记" />
+        app:title="添加笔记" />
 
    <EditText
        android:id="@+id/editContent"

@@ -14,18 +14,15 @@ import org.jetbrains.anko.startActivity
 class NoteListActivity : BaseActivity() {
     override fun onViewCreated(savedInstanceState: Bundle?) {
 
-        recyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-        window.decorView.postDelayed({
-            val adapter = NoticeListAdapter()
-            recyclerView.adapter = adapter
-            adapter.setOnItemClickListener{ _, _, position ->
-                adapter.getItem(position)?.apply {
-                    startActivity<AddNoteActivity>("id" to _id)
-                }
-
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val adapter = NoticeListAdapter()
+        recyclerView.adapter = adapter
+        adapter.setOnItemClickListener { _, _, position ->
+            adapter.getItem(position)?.apply {
+                startActivity<AddNoteActivity>("id" to _id)
             }
-        },1000)
 
+        }
         fab.setOnClickListener {
             startActivity<AddNoteActivity>()
         }
@@ -35,7 +32,7 @@ class NoteListActivity : BaseActivity() {
         super.onPause()
     }
 
-    override fun getLayoutId(): Int =  R.layout.activity_notice_list
+    override fun getLayoutId(): Int = R.layout.activity_notice_list
 
 
 }
