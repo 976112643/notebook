@@ -28,6 +28,7 @@ class AddNoteActivity : BaseActivity() {
     override fun onPause() {
         note.modify {
             content=editContent.text.toString()
+            updatetime=System.currentTimeMillis();
             realm.insertOrUpdate(note)
         }
         super.onPause()

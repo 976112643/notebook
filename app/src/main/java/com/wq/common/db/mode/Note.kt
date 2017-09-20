@@ -21,8 +21,8 @@ open class Note : RealmObject() {
     var tags:RealmList<NoteTag>?=null
     var category_id: String? = null
     var type = TYPE_TXT
-
-
+    var status=0
+    var isUpload=0;
     companion object {
         val TYPE_TXT = 0
         val TYPE_IMG = 1
