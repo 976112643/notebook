@@ -2,7 +2,7 @@ package com.wq.notebook.home
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import com.lizhuo.kotlinlearning.R
+import com.wq.config.R
 import com.wq.common.base.BaseActivity
 import com.wq.notebook.home.adapter.NoticeListAdapter
 import kotlinx.android.synthetic.main.activity_notice_list.*
@@ -19,9 +19,8 @@ class NoteListActivity : BaseActivity() {
         recyclerView.adapter = adapter
         adapter.setOnItemClickListener { _, _, position ->
             adapter.getItem(position)?.apply {
-                startActivity<AddNoteActivity>("id" to _id)
+                startActivity<AddNoteActivity>("id" to id)
             }
-
         }
         fab.setOnClickListener {
             startActivity<AddNoteActivity>()

@@ -21,7 +21,7 @@ import android.widget.ImageView
 import android.widget.TextView
 
 
-import com.lizhuo.kotlinlearning.R
+import com.wq.config.R
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 import java.lang.ref.WeakReference

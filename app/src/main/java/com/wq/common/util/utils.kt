@@ -5,6 +5,8 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.wq.common.base.App
+import com.wq.common.net.API
+import com.wq.common.net.APIManager
 import com.wq.common.util.FrameworkSetting.LOG_LEVEL
 import com.wq.common.util.LEVEL.*
 import java.text.SimpleDateFormat
@@ -95,6 +97,10 @@ fun <T> T.ifrun(bool: Boolean = true, block: T.() -> Unit) {
  */
 val _CONTEXT: App get() = App._CONTEXT
 
+/**
+ * 全局接口请求对象
+ */
+val Any.api:API get() = APIManager.request
 
 
 

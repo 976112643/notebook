@@ -6,7 +6,7 @@
         <item name="colorAccent">#656565</item>
         <item name="android:textColorPrimary">@android:color/black</item>
         <item name="android:windowBackground">@color/window_background</item>
-        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:fitsSystemWindows">false</item>
     </style>
 
     <style name="ToolbarSubtitle">
@@ -25,8 +25,5 @@
         <item name="android:layout_height">@dimen/titlebar_height</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

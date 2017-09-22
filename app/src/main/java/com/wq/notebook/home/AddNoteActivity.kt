@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import com.lizhuo.kotlinlearning.R
+import com.wq.config.R
 import com.wq.common.base.BaseActivity
 import com.wq.common.db.mode.Note
 import com.wq.common.db.modify

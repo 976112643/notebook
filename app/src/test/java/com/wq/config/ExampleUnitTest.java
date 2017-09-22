@@ -1,4 +1,4 @@
-package com.lizhuo.kotlinlearning;
+package com.wq.config;
 
 import org.junit.Test;
 
