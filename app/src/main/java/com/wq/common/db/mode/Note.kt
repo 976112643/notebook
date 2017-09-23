@@ -22,10 +22,5 @@ open class Note : RealmObject() {
     var category_id: String? = null
     var type = "TYPE_TXT"
     var status=0
-    var isUpload=0;
-    companion object {
-        val TYPE_TXT = 0
-        val TYPE_IMG = 1
-        val TYPE_MEDIA = 2
-    }
+    var is_upload=0 //是否需要上传,1则需要
 }

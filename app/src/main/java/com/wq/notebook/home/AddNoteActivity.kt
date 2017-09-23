@@ -63,6 +63,7 @@ class AddNoteActivity : BaseActivity() {
     private fun saveModify() {
         if (editContent.text.trim().isEmpty() ||  !hasChange) return
         note.modify {
+            isUpload=0
             content = editContent.text.toString()
             updatetime = System.currentTimeMillis()
             realm.insertOrUpdate(note)

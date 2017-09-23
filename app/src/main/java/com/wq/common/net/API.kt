@@ -3,10 +3,7 @@ package com.wq.common.net
 import com.wq.common.db.mode.Note
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 /**
@@ -15,5 +12,11 @@ import retrofit2.http.Query
  */
 interface API {
     @GET("Note/Index")
-    fun getNotes(@Query("uid")uid:String,@Query("p")p:Int): Call<BaseBean<List<Note>>>
+    fun getNotes(@Query("p")p:Int): Call<BaseBean<List<Note>>>
+    @FormUrlEncoded
+    @POST("Note/Index/edit")
+    fun editNote(note:Note): Call<BaseBean<Any>>
+    @FormUrlEncoded
+    @POST("Note/Index/update_all")
+    fun editNotes(notes:List<Note>): Call<BaseBean<Any>>
 }

@@ -7,8 +7,10 @@ import com.google.gson.reflect.TypeToken
 import com.wq.common.base.App
 import com.wq.common.net.API
 import com.wq.common.net.APIManager
+import com.wq.common.net.BaseBean
 import com.wq.common.util.FrameworkSetting.LOG_LEVEL
 import com.wq.common.util.LEVEL.*
+import retrofit2.Call
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,7 +46,7 @@ fun Any._Log(message: Any? = null, level: LEVEL = _D) {
  * 字符串转Bean
  */
 inline fun <reified T> String.toBean(): T = Gson().fromJson(this, object : TypeToken<T>() {}.type)
-
+fun Any.toJson(): String = Gson().toJson(this)
 fun <T> T?.empty(callback: () -> Unit = {}): Boolean {
     when (true) {
         this == null,
@@ -87,10 +89,32 @@ inline operator fun <reified T> Intent.get(key: String): T {
     throw RuntimeException("该类型不支持使用Intent存取")
 }
 
+inline  fun <reified T>getRawType()=T::class.java
+
 fun <T> T.ifrun(bool: Boolean = true, block: T.() -> Unit) {
     if (bool)
         block()
 }
+
+/**
+ * 网络请求的成功回调
+ */
+fun <T:BaseBean<U>,U> Call<T>.isOK(callback: BaseBean<U>.() -> Unit){
+    val body = execute().body()
+    if (body?.status==1){
+        callback(body)
+    }
+}
+
+/**
+ * 迭代集合,暴露item内部
+ */
+fun <T> Iterable<T>.innerforEach(callback: T.() -> Unit){
+    for (item in this){
+        callback(item)
+    }
+}
+
 
 /**
  * 为所有类扩展上下文字段，即全局上下文

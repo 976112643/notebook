@@ -19,4 +19,5 @@ public class BaseBean<T> {
     public int page;
     public int page_size;
     public T info;
+
 }
