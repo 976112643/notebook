@@ -14,13 +14,13 @@ import io.realm.annotations.PrimaryKey
 open class Note : RealmObject() {
 
     @PrimaryKey
-    var _id = generateId()
+    var id = generateId()
     var content: String =""
     var addtime = System.currentTimeMillis()
     var updatetime = System.currentTimeMillis()
     var tags:RealmList<NoteTag>?=null
     var category_id: String? = null
-    var type = TYPE_TXT
+    var type = "TYPE_TXT"
     var status=0
     var isUpload=0;
     companion object {

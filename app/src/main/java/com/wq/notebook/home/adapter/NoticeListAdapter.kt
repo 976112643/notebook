@@ -2,7 +2,7 @@ package com.wq.notebook.home.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.lizhuo.kotlinlearning.R
+import com.wq.config.R
 import com.wq.common.db.mode.Note
 import com.wq.common.db.where
 import com.wq.common.util.date

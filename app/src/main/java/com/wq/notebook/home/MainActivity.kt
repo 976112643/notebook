@@ -2,7 +2,7 @@ package com.wq.notebook.home
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import com.lizhuo.kotlinlearning.R
+import com.wq.config.R
 import com.wq.common.base.BaseActivity
 import com.wq.common.base.QBaseAdapter
 import kotlinx.android.synthetic.main.activity_main.*

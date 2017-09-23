@@ -1,4 +1,4 @@
-package com.lizhuo.kotlinlearning;
+package com.wq.config;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

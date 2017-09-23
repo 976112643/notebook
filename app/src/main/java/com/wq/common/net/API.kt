@@ -1,8 +1,12 @@
 package com.wq.common.net
 
+import com.wq.common.db.mode.Note
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.http.Field
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 /**
@@ -10,6 +14,6 @@ import retrofit2.http.GET
  * Created by WQ on 2017/9/20.
  */
 interface API {
-    @GET("openapi.do?keyfrom=Yanzhikai&key=2032414398&type=data&doctype=json&version=1.1&q=car")
-    fun getCall(): Call<ResponseBody>
+    @GET("Note/Index")
+    fun getNotes(@Query("uid")uid:String,@Query("p")p:Int): Call<BaseBean<List<Note>>>
 }

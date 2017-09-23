@@ -1,6 +1,6 @@
 package com.wq.notebook.home
 
-import com.lizhuo.kotlinlearning.R
+import com.wq.config.R
 import com.wq.common.base.QBaseAdapter
 import com.wq.common.base.QBaseAdapter.BindViewHolder
 
