@@ -9,6 +9,7 @@ import com.wq.common.base.BaseActivity
 import com.wq.common.db.mode.Note
 import com.wq.common.db.modify
 import com.wq.common.db.realm
+import com.wq.common.service.NetTaskService
 import com.wq.common.util.ifrun
 import kotlinx.android.synthetic.main.activity_add_note.*
 
@@ -22,7 +23,7 @@ class AddNoteActivity : BaseActivity() {
     override fun onViewCreated(savedInstanceState: Bundle?) {
         val id = intent.getStringExtra("id")
         realm.where(Note::class.java).
-                equalTo("_id", id).
+                equalTo("id", id).
                 findFirst()?.
                 apply {
                     note = this
@@ -63,11 +64,12 @@ class AddNoteActivity : BaseActivity() {
     private fun saveModify() {
         if (editContent.text.trim().isEmpty() ||  !hasChange) return
         note.modify {
-            isUpload=0
+            is_upload=1
             content = editContent.text.toString()
             updatetime = System.currentTimeMillis()
             realm.insertOrUpdate(note)
         }
+        NetTaskService.startNetTask(this)//
     }
 
     override fun getLayoutId(): Int = R.layout.activity_add_note

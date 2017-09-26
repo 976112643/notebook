@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.wq.config.R
 import com.wq.common.base.BaseActivity
+import com.wq.common.service.NetTaskService
 import com.wq.notebook.home.adapter.NoticeListAdapter
 import kotlinx.android.synthetic.main.activity_notice_list.*
 import org.jetbrains.anko.startActivity
@@ -25,6 +26,7 @@ class NoteListActivity : BaseActivity() {
         fab.setOnClickListener {
             startActivity<AddNoteActivity>()
         }
+        NetTaskService.startNetTask(this)//
     }
 
     override fun onPause() {

@@ -23,4 +23,5 @@ open class Note : RealmObject() {
     var type = "TYPE_TXT"
     var status=0
     var is_upload=0 //是否需要上传,1则需要
+    var version=0 //笔记当前版本
 }

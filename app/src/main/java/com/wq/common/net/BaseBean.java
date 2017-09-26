@@ -20,4 +20,8 @@ public class BaseBean<T> {
     public int page_size;
     public T info;
 
+    @Override
+    public String toString() {
+        return String.valueOf(info);
+    }
 }

@@ -3,7 +3,7 @@
     package="com.wq.config">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <application
         android:name="com.wq.common.base.App"
         android:allowBackup="true"

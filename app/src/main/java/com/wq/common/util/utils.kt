@@ -1,16 +1,25 @@
 package com.wq.common.util
 
+import android.content.Context
 import android.content.Intent
+import android.telecom.TelecomManager
+import android.telephony.TelephonyManager
 import android.util.Log
+import com.google.gson.ExclusionStrategy
+import com.google.gson.FieldAttributes
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.wq.common.base.App
+import com.wq.common.db.mode.Note
 import com.wq.common.net.API
 import com.wq.common.net.APIManager
 import com.wq.common.net.BaseBean
 import com.wq.common.util.FrameworkSetting.LOG_LEVEL
 import com.wq.common.util.LEVEL.*
+import io.realm.RealmObject
 import retrofit2.Call
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,12 +50,21 @@ fun Any._Log(message: Any? = null, level: LEVEL = _D) {
         (level == _A || isAll) -> Log.wtf(javaClass.simpleName, "$logMessage")
     }
 }
-
+val array=arrayOf(Note::class.java)
 /**
  * 字符串转Bean
  */
 inline fun <reified T> String.toBean(): T = Gson().fromJson(this, object : TypeToken<T>() {}.type)
-fun Any.toJson(): String = Gson().toJson(this)
+fun Any.toJson(): String =  GsonBuilder()
+        .setExclusionStrategies(object : ExclusionStrategy {
+            override fun shouldSkipClass(clazz: Class<*>?): Boolean {
+                return !array.contains(clazz)
+            }
+
+            override fun shouldSkipField(f: FieldAttributes): Boolean {
+                return false
+            }
+        }).create().toJson(this)
 fun <T> T?.empty(callback: () -> Unit = {}): Boolean {
     when (true) {
         this == null,
@@ -64,8 +82,12 @@ fun <T> T?.empty(callback: () -> Unit = {}): Boolean {
     return false
 }
 
-fun <T> T?.notEmpty(callback: (T) -> Unit) {
-    if (!this.empty()) callback.invoke(this as T)
+fun <T> T?.notEmpty(callback: (T) -> Unit={}):Boolean {
+    if (!this.empty()){
+        callback.invoke(this as T)
+        return true
+    }
+    return false
 }
 
 fun Long.date(): String {
@@ -103,6 +125,8 @@ fun <T:BaseBean<U>,U> Call<T>.isOK(callback: BaseBean<U>.() -> Unit){
     val body = execute().body()
     if (body?.status==1){
         callback(body)
+    }else{
+        throw IOException(body?.msg)
     }
 }
 
@@ -113,6 +137,14 @@ fun <T> Iterable<T>.innerforEach(callback: T.() -> Unit){
     for (item in this){
         callback(item)
     }
+}
+
+/**
+ * 设备号
+ */
+val _DEVICE_NO:String by lazy {
+    val systemService = _CONTEXT.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+    systemService.deviceId
 }
 
 
