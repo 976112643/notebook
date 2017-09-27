@@ -21,14 +21,14 @@ class AddNoteActivity : BaseActivity() {
     var note: Note = Note()
     var hasChange=false
     override fun onViewCreated(savedInstanceState: Bundle?) {
-        val id = intent.getStringExtra("id")
+        val note_id = intent.getStringExtra("note_id")
         realm.where(Note::class.java).
-                equalTo("id", id).
+                equalTo("note_id", note_id).
                 findFirst()?.
                 apply {
                     note = this
                 }
-        titleBar.ifrun(id!=null){
+        titleBar.ifrun(note_id!=null){
             setTitle("编辑笔记")
             setRightVisible(View.VISIBLE)
             setRightAction {
