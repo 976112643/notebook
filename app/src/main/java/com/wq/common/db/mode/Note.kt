@@ -13,8 +13,9 @@ import io.realm.annotations.PrimaryKey
 
 open class Note : RealmObject() {
 
+    var id = "0"
     @PrimaryKey
-    var id = generateId()
+    var note_id=generateId()
     var content: String =""
     var addtime = System.currentTimeMillis()
     var updatetime = System.currentTimeMillis()

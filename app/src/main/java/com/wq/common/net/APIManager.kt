@@ -15,8 +15,8 @@ object APIManager {
         var client = OkHttpClient.Builder()
                 .addInterceptor(addConfigInterceptor()).build()
         val retrofit = Retrofit.Builder()
-//               .baseUrl("https://manager.quanwe.top/Api/") //设置网络请求的Url地址
-              .baseUrl("http://192.168.1.130/Api/") //设置网络请求的Url地址
+               .baseUrl("https://manager.quanwe.top/Api/") //设置网络请求的Url地址
+//              .baseUrl("http://192.168.1.130/Api/") //设置网络请求的Url地址
 //                .baseUrl("http://192.168.31.36/Api/") //设置网络请求的Url地址
                 .addConverterFactory(GsonConverterFactory.create()) //设置数据解析器
                 .client(client)

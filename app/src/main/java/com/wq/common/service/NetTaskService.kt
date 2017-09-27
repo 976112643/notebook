@@ -33,13 +33,12 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
      * 尝试下载新的数据
      */
     private fun tryDownloadNotes() {
-        // tryUploadNote();
         var findAllSorted = realm.where(Note::class.java).findAllSorted("version", Sort.DESCENDING)
         var version = 0
         if (findAllSorted.size > 0) {//查询当前最新版本,本地修改并不会
             version = findAllSorted[0].version
         }
-        var needBreak = false;
+        var needBreak = false
         for (i in 0..Int.MAX_VALUE) {
             if (needBreak) break
             api.getNewNotes(i, version).isOK {
@@ -60,17 +59,17 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
         //查找所有需要上传的文件
         var result: List<Note> = realm.where(Note::class.java).equalTo("is_upload", 1).findAll()
         result=realm.copyFromRealm(result)
-//        val toJson = result.toJson()
         val data = ArrayList<Note>()
         result.forEach {
             data.add(it)
         }
         api.editNotes(data.toJson()).isOK {
-            val newVersion = toString().toInt()
+            val split = toString().split(",")
             executeTransaction {
-                result.innerforEach {
-                    is_upload = 0
-                    version = newVersion//更新版本信息
+                result.forEachIndexed { index, note ->
+                    note.is_upload=0
+                    if(split[index]!="0")
+                        note.id=split[index]//设置服务器端的id
                 }
             }
         }

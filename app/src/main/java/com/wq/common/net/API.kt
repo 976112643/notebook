@@ -23,7 +23,7 @@ interface API {
 
     @POST("Note/Index/update_all")
     @FormUrlEncoded
-    fun editNotes(@Field("notes") notes:String): Call<BaseBean<Any>>
+    fun editNotes(@Field("notes") notes:String): Call<BaseBean<String>>
     @FormUrlEncoded
     @POST("Login/Register")
     fun loginOrRegister(@Field("device")device:String):Call<BaseBean<UserInfo>>
