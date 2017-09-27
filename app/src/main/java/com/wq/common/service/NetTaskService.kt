@@ -23,8 +23,8 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
             checkLogin()
             tryUploadNotes()
             tryDownloadNotes()
-        }catch (e:Exception){
-            _Log(e)
+        } catch (e: Exception) {
+            _Log(e, LEVEL._E)
         }
 
     }
@@ -35,16 +35,16 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
     private fun tryDownloadNotes() {
         // tryUploadNote();
         var findAllSorted = realm.where(Note::class.java).findAllSorted("version", Sort.DESCENDING)
-        var version=0
-        if(findAllSorted.size>0){//查询当前最新版本,本地修改并不会
-            version=   findAllSorted[0].version
+        var version = 0
+        if (findAllSorted.size > 0) {//查询当前最新版本,本地修改并不会
+            version = findAllSorted[0].version
         }
-        var needBreak=false;
-        for (i in 0..Int.MAX_VALUE ) {
-            if(needBreak)break
+        var needBreak = false;
+        for (i in 0..Int.MAX_VALUE) {
+            if (needBreak) break
             api.getNewNotes(i, version).isOK {
-                if (info.empty()){
-                    needBreak=true
+                if (info.empty()) {
+                    needBreak = true
                     return@isOK
                 }
                 executeTransaction {
@@ -53,47 +53,55 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
                 }
             }
         }
-        }
+        "tryDownloadNotes 完成"._Log()
+    }
 
     private fun tryUploadNotes() {
         //查找所有需要上传的文件
-        var result:List<Note> = realm.where(Note::class.java).equalTo("is_upload", 1).findAll()
+        var result: List<Note> = realm.where(Note::class.java).equalTo("is_upload", 1).findAll()
+        result=realm.copyFromRealm(result)
 //        val toJson = result.toJson()
-        api.editNotes(result.toJson()).isOK {
-           val newVersion= toString().toInt()
+        val data = ArrayList<Note>()
+        result.forEach {
+            data.add(it)
+        }
+        api.editNotes(data.toJson()).isOK {
+            val newVersion = toString().toInt()
             executeTransaction {
                 result.innerforEach {
-                    is_upload=0
-                    version=newVersion//更新版本信息
+                    is_upload = 0
+                    version = newVersion//更新版本信息
                 }
             }
         }
+        "tryUploadNotes 完成"._Log()
 
     }
 
-    private fun tryUploadNote( note:Note) {
-        api.editNote(note).isOK{//请求成功
+    private fun tryUploadNote(note: Note) {
+        api.editNote(note).isOK {
+            //请求成功
             note.modify {
                 //更新上传状态
-                note.is_upload=0
+                note.is_upload = 0
             }
         }
     }
 
 
-    private fun checkLogin(){
+    private fun checkLogin() {
         val userInfo = UserBean()
-        if(!userInfo.isVaild()){
+        if (!userInfo.isVaild()) {
             api.loginOrRegister(_DEVICE_NO).isOK {
-                userInfo.uid=info.uid
+                userInfo.uid = info.uid
             }
         }
     }
 
     companion object {
         private var nameNo = 0
-        fun startNetTask(context: Context){
-            context.startService(Intent(context,NetTaskService::class.java))
+        fun startNetTask(context: Context) {
+            context.startService(Intent(context, NetTaskService::class.java))
         }
     }
 }

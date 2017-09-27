@@ -56,15 +56,18 @@ val array=arrayOf(Note::class.java)
  */
 inline fun <reified T> String.toBean(): T = Gson().fromJson(this, object : TypeToken<T>() {}.type)
 fun Any.toJson(): String =  GsonBuilder()
-        .setExclusionStrategies(object : ExclusionStrategy {
-            override fun shouldSkipClass(clazz: Class<*>?): Boolean {
-                return !array.contains(clazz)
-            }
-
-            override fun shouldSkipField(f: FieldAttributes): Boolean {
-                return false
-            }
-        }).create().toJson(this)
+//        .setExclusionStrategies(object : ExclusionStrategy {
+//            val fieldTypes= arrayOf(Note::class.java,Int::class.java,String::class.java,Long::class.java)
+//            override fun shouldSkipClass(clazz: Class<*>?): Boolean {
+//                return false
+//            }
+//
+//            override fun shouldSkipField(f: FieldAttributes): Boolean {
+//
+//                return !fieldTypes.contains(f.declaringClass)
+//            }
+//        })
+        .create().toJson(this)
 fun <T> T?.empty(callback: () -> Unit = {}): Boolean {
     when (true) {
         this == null,
