@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.wq.notebook.home.AddNoteActivity"/>
+        <activity android:name="com.wq.notebook.home.AddNoteActivity" android:windowSoftInputMode="stateAlwaysHidden"/>
         <service android:name="com.wq.common.service.NetTaskService"/>
     </application>
 

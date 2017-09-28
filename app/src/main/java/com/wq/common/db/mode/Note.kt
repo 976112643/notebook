@@ -5,6 +5,7 @@ import com.wq.common.db.generateId
 import io.realm.Realm
 import io.realm.RealmList
 import io.realm.RealmObject
+import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
 
 /**

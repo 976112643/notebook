@@ -9,17 +9,25 @@
     <com.wq.common.widget.TitleBar
         android:id="@+id/titleBar"
         style="@style/BackTitleBarStyle"
+        app:rightIcon="@drawable/ic_ok"
         app:rightTextColor="@color/red"
-        app:rightText="删除"
+        app:rightVisible="visible"
         app:title="添加笔记" />
 
-   <EditText
-       android:id="@+id/editContent"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:gravity="left"
-       android:background="@color/white"
-       android:padding="10dp"
-       android:lineSpacingMultiplier="1.2"
-       />
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <EditText
+            android:id="@+id/editContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="left"
+            android:lineSpacingMultiplier="1.2"
+            android:padding="10dp" />
+    </ScrollView>
+
 </LinearLayout>

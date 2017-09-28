@@ -14,13 +14,19 @@ import io.realm.Sort
  */
 class NoticeListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R.layout.item_notice_simple_info) {
     override fun convert(helper: BaseViewHolder, item: Note) {
+
+        val smallContent= item.content.subSequence(0,if(item.content.length>100)100 else item.content.length).toString().replace("\n","").replace(" ","")
         helper.setText(R.id.item_time, item.updatetime.date())
-        helper.setText(R.id.item_content, item.content)
+        helper.setText(R.id.item_content, smallContent)
+        val color33 = mContext.resources.getColor(R.color.text33)
+        val color99 = mContext.resources.getColor(R.color.text99)
+        helper.setTextColor(R.id.item_content,if(item.status==-1)color99 else color33)
         helper.setImageResource(R.id.item_cover, R.mipmap.test_img)
     }
 
     init {
-        where<Note>().notEqualTo("status",-1).findAllSorted("updatetime", Sort.DESCENDING).apply {
+//        .notEqualTo("status",-1)
+        where<Note>().findAllSorted("updatetime", Sort.DESCENDING).sort("status",Sort.DESCENDING).apply {
             setNewData(this)
             addChangeListener { t, changeSet ->
                 notifyDataSetChanged()
