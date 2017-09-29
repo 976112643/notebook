@@ -102,7 +102,7 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * 是否修复,出现冲突时,开启该选项
      */
-    private fun  isFixInputBug(): Boolean =false
+    open protected fun  isFixInputBug(): Boolean =false
 
     private fun possiblyResizeChildOfContent() {
         val usableHeightNow = computeUsableHeight()

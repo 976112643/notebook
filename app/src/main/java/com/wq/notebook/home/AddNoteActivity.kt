@@ -69,6 +69,7 @@ class AddNoteActivity : BaseActivity() {
         NetTaskService.startNetTask(this)//启动任务进行同步操作
     }
 
+    //override fun isFixInputBug(): Boolean =true
     override fun getLayoutId(): Int = R.layout.activity_add_note
 
 }
