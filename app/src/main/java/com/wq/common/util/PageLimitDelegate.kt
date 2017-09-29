@@ -91,28 +91,5 @@ class PageLimitDelegate<T>( var provider: PageLimitDelegate.DataProvider//数据
         fun loadData(page: Int)
     }
 
-    companion object {
-
-
-      fun  <T>  addData2List(src: MutableList<T>, data: List<T>?) {
-            if (data != null) {
-                val var3 = data.iterator()
-
-                while (true) {
-                    while (var3.hasNext()) {
-                        val `object` = var3.next()
-                        val index = src.indexOf(`object`)
-                        if (index != -1) {
-                            src[index] = `object`
-                        } else {
-                            src.add(`object`)
-                        }
-                    }
-
-                    return
-                }
-            }
-        }
-    }
 
 }

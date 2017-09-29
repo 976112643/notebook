@@ -14,6 +14,7 @@ import io.realm.Sort
 
 
 /**
+ * 网络同步任务服务
  * Created by WQ on 2017/9/20.
  */
 class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetTaskService.nameNo++) {
@@ -71,8 +72,10 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
             executeTransaction {
                 result.forEachIndexed { index, note ->
                     note.is_upload=0
-                    if(split[index]!="0")
-                        note.id=split[index]//设置服务器端的id
+                    if(split[index]!="0") {
+                        note.id = split[index]//设置服务器端的id
+                    }
+                    note.version++
                 }
                 realm.insertOrUpdate(result)
             }
@@ -92,6 +95,9 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
     }
 
 
+    /**
+     * 检查登陆状态
+     */
     private fun checkLogin() {
         val userInfo = UserBean()
         if (!userInfo.isVaild()) {

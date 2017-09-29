@@ -1,6 +1,7 @@
 package com.wq.common.util
 import android.content.Context
 import com.wq.common.base.App.Companion._CONTEXT
+import kotlin.properties.Delegates
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 

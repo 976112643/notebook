@@ -84,14 +84,4 @@ class addConfigInterceptor : Interceptor {
         }
 
     }
-//    override fun intercept(chain: Interceptor.Chain): Response {
-//        var request = chain.request()
-//        val modifiedUrl = request.url().
-//                newBuilder().
-//                addQueryParameter("uid", userInfo.uid).
-//                build()
-//        request = request.newBuilder().url(modifiedUrl).build();
-//        return chain.proceed(request)
-//    }
-
 }
