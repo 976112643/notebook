@@ -1,9 +1,11 @@
 package com.wq.notebook.home.adapter
 
+import android.support.design.widget.Snackbar
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.wq.config.R
 import com.wq.common.db.mode.Note
+import com.wq.common.db.modify
 import com.wq.common.db.where
 import com.wq.common.util.date
 import io.realm.Sort
@@ -15,7 +17,7 @@ import io.realm.Sort
 class NoticeListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R.layout.item_notice_simple_info) {
     override fun convert(helper: BaseViewHolder, item: Note) {
 
-        val smallContent= item.content.subSequence(0,if(item.content.length>100)100 else item.content.length).toString().replace("\n","").replace(" ","")
+        val smallContent= item.content.subSequence(0,if(item.content.length>100)100 else item.content.length).toString().replace("\n"," ")
         helper.setText(R.id.item_time, item.updatetime.date())
         helper.setText(R.id.item_content, smallContent)
         val color33 = mContext.resources.getColor(R.color.text33)
@@ -32,6 +34,13 @@ class NoticeListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R
                 notifyDataSetChanged()
             }
         }
+
     }
 
+    fun deleteItem(position:Int){
+        mData[position].modify {
+            status=-1
+            is_upload=1
+        }
+    }
 }
