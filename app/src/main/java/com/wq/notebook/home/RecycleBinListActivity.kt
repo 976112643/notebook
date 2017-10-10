@@ -7,21 +7,21 @@ import com.wq.config.R
 import com.wq.common.base.BaseActivity
 import com.wq.common.service.NetTaskService
 import com.wq.notebook.home.adapter.NoticeListAdapter
+import com.wq.notebook.home.adapter.RecycleBinListAdapter
 import com.wq.notebook.home.adapter.SimpleItemTouchHelper
-import kotlinx.android.synthetic.main.activity_notice_list.*
+import kotlinx.android.synthetic.main.activity_recyclebin_list.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 /**
- * 笔记列表
+ * 已删除笔记列表
  */
-class NoteListActivity : BaseActivity() {
+class RecycleBinListActivity : BaseActivity() {
     override fun onViewCreated(savedInstanceState: Bundle?) {
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val adapter = NoticeListAdapter()
+        val adapter = RecycleBinListAdapter()
         recyclerView.adapter = adapter
-        val itemTouchHelper = ItemTouchHelper(SimpleItemTouchHelper(adapter))
-        itemTouchHelper.attachToRecyclerView(recyclerView)
+//        val itemTouchHelper = ItemTouchHelper(SimpleItemTouchHelper(adapter))
+//        itemTouchHelper.attachToRecyclerView(recyclerView)
         adapter.setOnItemClickListener { _, _, position ->
             adapter.getItem(position)?.apply {
                 startActivity<AddNoteActivity>("note_id" to note_id)
@@ -29,23 +29,16 @@ class NoteListActivity : BaseActivity() {
         }
         titleBar.apply {
             setLeftAction{
-                startActivity<RecycleBinListActivity>()
-            }
-            setRightAction {
-                toast("搜索")
+
             }
         }
-        fab.setOnClickListener {
-            startActivity<AddNoteActivity>()
-        }
-        NetTaskService.startNetTask(this)//
     }
 
     override fun onPause() {
         super.onPause()
     }
 
-    override fun getLayoutId(): Int = R.layout.activity_notice_list
+    override fun getLayoutId(): Int = R.layout.activity_recyclebin_list
 
 
 }

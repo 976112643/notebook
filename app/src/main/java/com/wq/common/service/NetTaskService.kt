@@ -24,6 +24,7 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
             checkLogin()
             tryUploadNotes()
             tryDownloadNotes()
+
         } catch (e: Exception) {
             _Log(e, LEVEL._E)
         }

@@ -1,5 +1,6 @@
 package com.wq.common.base
 
+import android.app.Activity
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Build
@@ -16,7 +17,7 @@ import com.wq.common.base.util.StatusBarUtil.checkDeviceHasNavigationBarByLollip
 /**
  * Activity 基类
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (isTranslucent()) {

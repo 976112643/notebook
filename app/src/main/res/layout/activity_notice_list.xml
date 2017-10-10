@@ -10,7 +10,14 @@
     <com.wq.common.widget.TitleBar
         android:id="@+id/titleBar"
         style="@style/DefTitleBarStyle"
-        app:title="笔记" />
+        app:rightText="搜索"
+        app:rightVisible="visible"
+        app:title="笔记"
+        app:rightTextColor="@color/white"
+        app:leftText="废纸篓"
+        app:leftVisible="visible"
+        app:leftTextColor="@color/white"
+        />
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"

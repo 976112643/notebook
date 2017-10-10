@@ -186,7 +186,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         this.btnRight2.visibility = visibility
     }
 
-    fun setLeftAction(click: View.OnClickListener?): TitleBar {
+    fun setLeftAction(click: ((View) -> Unit)?): TitleBar {
         if (click == null) return this
         btnLeft.visibility = View.VISIBLE
         this.btnLeft.setOnClickListener(click)
@@ -215,7 +215,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         return this
     }
 
-    fun setLeft(@DrawableRes icon: Int, text: String?, @ColorInt color: Int, click: View.OnClickListener?): TitleBar {
+    fun setLeft(@DrawableRes icon: Int, text: String?, @ColorInt color: Int, click: ((View) -> Unit)?): TitleBar {
         return this.setLeftIcon(icon).setLeftText(text).setLeftTextColor(color).setLeftAction(click)
     }
 
@@ -231,7 +231,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         return this
     }
 
-    fun setRightAction(click :((View)->Unit)?): TitleBar {
+    fun setRightAction(click: ((View) -> Unit)?): TitleBar {
         if (click == null) return this
         btnRight.visibility = View.VISIBLE
         this.btnRight.setOnClickListener(click)
@@ -298,7 +298,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         return build(context, title, -1, leftText, FinishAction(context))
     }
 
-    @JvmOverloads fun build(context: Activity, title: String, @DrawableRes leftIcon: Int, leftText: String?, leftActoin: View.OnClickListener? = FinishAction(context)): TitleBar {
+    @JvmOverloads fun build(context: Activity, title: String, @DrawableRes leftIcon: Int, leftText: String?, leftActoin: ((View) -> Unit)? = { context?.finish() }): TitleBar {
         if (!TextUtils.isEmpty(leftText)) {
             setLeftText(leftText)
         }
@@ -313,19 +313,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
 
-    internal inner class FinishAction(act: Activity) : View.OnClickListener {
-
-        private val context: WeakReference<Activity>
-
-        init {
-            this.context = WeakReference(act)
-        }
-
-        override fun onClick(v: View) {
-            val activity = context.get()
-            activity?.finish()
-        }
-    }
+    fun FinishAction(act: Activity): ((View)->Unit) = { act?.finish() }
 
     @Retention(RetentionPolicy.SOURCE)
     @Target(AnnotationTarget.VALUE_PARAMETER)
