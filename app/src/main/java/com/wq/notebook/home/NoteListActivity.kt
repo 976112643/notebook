@@ -6,6 +6,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import com.wq.config.R
 import com.wq.common.base.BaseActivity
 import com.wq.common.service.NetTaskService
+import com.wq.notebook.common.mode.logic.ViewDragMode
 import com.wq.notebook.home.adapter.NoticeListAdapter
 import com.wq.notebook.home.adapter.SimpleItemTouchHelper
 import kotlinx.android.synthetic.main.activity_notice_list.*
@@ -39,6 +40,7 @@ class NoteListActivity : BaseActivity() {
             startActivity<AddNoteActivity>()
         }
         NetTaskService.startNetTask(this)//
+        val viewDragMode= ViewDragMode(fab)
     }
 
     override fun onPause() {

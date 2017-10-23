@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="240dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/label_src"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:gravity="center"
+            android:labelFor="@+id/edit_src"
+            android:text="Image src"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/edit_src"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:inputType="textUri" />
+
+        <TextView
+            android:id="@+id/label_alt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:gravity="center"
+            android:labelFor="@+id/edit_alt"
+            android:text="Alt"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/edit_alt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/button_activated"
+                android:text="@android:string/ok"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/button_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@color/button_enabled"
+                android:text="@android:string/cancel"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

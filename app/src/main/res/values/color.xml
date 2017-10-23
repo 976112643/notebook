@@ -14,4 +14,10 @@
     <color name="text99">#999</color>
     <color name="textcc">#ccc</color>
     <color name="red">#f14646</color>
+
+
+    <color name="button_enabled">#333333</color>
+    <color name="button_disabled">#eeeeee</color>
+    <color name="button_activated">#428bca</color>
+    <color name="button_deactivated">@color/button_enabled</color>
 </resources>
