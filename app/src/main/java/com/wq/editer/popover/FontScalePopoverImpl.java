@@ -94,7 +94,7 @@ public class FontScalePopoverImpl implements Popover {
                         icarus.jsExec(
                                 String.format(
                                         "javascript: editor.toolbar.execCommand('%s', %s)",
-                                        Button.NAME_FONT_SCALE,
+                                        Button.Companion.getNAME_FONT_SCALE(),
                                         getRadioFontSizeMapping().get(checkedButtonId)
                                 )
                         );

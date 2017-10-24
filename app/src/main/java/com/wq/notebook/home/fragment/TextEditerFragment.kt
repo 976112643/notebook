@@ -3,7 +3,6 @@ package com.wq.notebook.home.fragment
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
-import android.webkit.WebView
 import android.widget.TextView
 import com.wq.common.base.BaseFragment
 import com.wq.common.util._CONTEXT
@@ -27,21 +26,20 @@ import java.util.*
  */
 
 class TextEditerFragment : BaseFragment() {
+    val iconfont by lazy {
+        Typeface.createFromAsset(_CONTEXT.assets, "Simditor.ttf")
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val toolbar = TextViewToolbar()
         val options = Options {
             placeholder = "Input something..."
-            addAllowedAttributes {
-                this["img"] = Arrays.asList("data-type", "data-id", "class", "src", "alt", "width", "height", "data-non-image");
-                 "iframe" to Arrays.asList("data-type", "data-id", "class", "src", "width", "height")
-            }
+            addAllowedAttributes("img", Arrays.asList("data-type", "data-id", "class", "src", "alt", "width", "height", "data-non-image"))
+            addAllowedAttributes("iframe", Arrays.asList("data-type", "data-id", "class", "src", "width", "height"))
+            addAllowedAttributes("a", Arrays.asList("data-type", "data-id", "class", "href", "target", "title"))
+
         }
-        //  img: ['src', 'alt', 'width', 'height', 'data-non-image']
-        // a: ['href', 'target']
-        options.addAllowedAttributes("img", Arrays.asList("data-type", "data-id", "class", "src", "alt", "width", "height", "data-non-image"))
-        options.addAllowedAttributes("iframe", Arrays.asList("data-type", "data-id", "class", "src", "width", "height"))
-        options.addAllowedAttributes("a", Arrays.asList("data-type", "data-id", "class", "href", "target", "title"))
 
         val icarus = Icarus(toolbar, options, editor)
         prepareToolbar(toolbar, icarus)
@@ -50,8 +48,8 @@ class TextEditerFragment : BaseFragment() {
         icarus.render()
     }
 
-    private fun prepareToolbar(toolbar: TextViewToolbar, icarus: Icarus): Toolbar {
-        val iconfont = Typeface.createFromAsset(_CONTEXT.getAssets(), "Simditor.ttf")
+    private fun prepareToolbar(toolbar: TextViewToolbar, locIcarus: Icarus): Toolbar {
+
         val generalButtons = HashMap<String, Int>()
         generalButtons.put(Button.NAME_BOLD, R.id.button_bold)
         generalButtons.put(Button.NAME_OL, R.id.button_list_ol)
@@ -67,41 +65,32 @@ class TextEditerFragment : BaseFragment() {
         generalButtons.put(Button.NAME_CODE, R.id.button_math)
         generalButtons.put(Button.NAME_UNDERLINE, R.id.button_underline)
         generalButtons.put(Button.NAME_STRIKETHROUGH, R.id.button_strike_through)
-
-        for (name in generalButtons.keys) {
-            val textView = layToolBar.findViewById(generalButtons[name] as Int) as TextView ?: continue
-            textView.typeface = iconfont
-            val button = TextViewButton(textView, icarus)
-            button.name = name
+        for ((nameTag, btnId) in generalButtons) {
+            toolbar.addButton(TextViewButton(findToolBtn(btnId), nameTag, locIcarus))
+        }
+        findToolBtn(R.id.button_link).apply {
+            val button = TextViewButton(this, Button.NAME_LINK, locIcarus, LinkPopoverImpl(this, locIcarus))
             toolbar.addButton(button)
         }
-        val linkButtonTextView = layToolBar.findViewById(R.id.button_link) as TextView
-        linkButtonTextView.typeface = iconfont
-        val linkButton = TextViewButton(linkButtonTextView, icarus)
-        linkButton.name = Button.NAME_LINK
-        linkButton.popover = LinkPopoverImpl(linkButtonTextView, icarus)
-        toolbar.addButton(linkButton)
-
-        val imageButtonTextView = layToolBar.findViewById(R.id.button_image) as TextView
-        imageButtonTextView.typeface = iconfont
-        val imageButton = TextViewButton(imageButtonTextView, icarus)
-        imageButton.name = Button.NAME_IMAGE
-        imageButton.popover = ImagePopoverImpl(imageButtonTextView, icarus)
-        toolbar.addButton(imageButton)
-
-        val htmlButtonTextView = layToolBar.findViewById(R.id.button_html5) as TextView
-        htmlButtonTextView.typeface = iconfont
-        val htmlButton = TextViewButton(htmlButtonTextView, icarus)
-        htmlButton.setName(Button.NAME_HTML)
-        htmlButton.setPopover(HtmlPopoverImpl(htmlButtonTextView, icarus))
-        toolbar.addButton(htmlButton)
-
-        val fontScaleTextView = layToolBar.findViewById(R.id.button_font_scale) as TextView
-        fontScaleTextView.typeface = iconfont
-        val fontScaleButton = FontScaleButton(fontScaleTextView, icarus)
-        fontScaleButton.setPopover(FontScalePopoverImpl(fontScaleTextView, icarus))
-        toolbar.addButton(fontScaleButton)
+        findToolBtn(R.id.button_image).apply {
+            val button = TextViewButton(this, Button.NAME_IMAGE, locIcarus, ImagePopoverImpl(this, locIcarus))
+            toolbar.addButton(button)
+        }
+        findToolBtn(R.id.button_html5).apply {
+            val button = TextViewButton(this, Button.NAME_HTML, locIcarus, HtmlPopoverImpl(this, locIcarus))
+            toolbar.addButton(button)
+        }
+        findToolBtn(R.id.button_font_scale).apply {
+            val button = FontScaleButton(this, Button.NAME_HTML, locIcarus, FontScalePopoverImpl(this, locIcarus))
+            toolbar.addButton(button)
+        }
         return toolbar
+    }
+
+    fun findToolBtn(id: Int): TextView {
+        val toolTxt = layToolBar.findViewById(id) as TextView
+        toolTxt.typeface = iconfont
+        return toolTxt
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_text_editer
