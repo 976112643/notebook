@@ -40,7 +40,7 @@ class NoteListActivity : BaseActivity() {
             startActivity<AddNoteActivity>()
         }
         NetTaskService.startNetTask(this)//
-        val viewDragMode= ViewDragMode(fab)
+//        val viewDragMode= ViewDragMode(fab)
     }
 
     override fun onPause() {
