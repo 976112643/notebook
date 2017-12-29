@@ -13,6 +13,8 @@ import com.wq.common.db.realm
 import com.wq.common.service.NetTaskService
 import com.wq.common.util.empty
 import com.wq.common.util.ifrun
+import com.wq.common.util.wathch
+import com.wq.common.util.wathchChange
 import kotlinx.android.synthetic.main.activity_add_note.*
 
 /**
@@ -25,10 +27,11 @@ class AddNoteActivity : BaseActivity() {
     override fun onViewCreated(savedInstanceState: Bundle?) {
         val note_id = intent.getStringExtra("note_id")
         val firstNote = realm.where(Note::class.java).equalTo("note_id", note_id).findFirst()
-        note=firstNote?: Note()
+        note = firstNote ?: Note()
         titleBar.apply {
-            if (note_id != null)
+            note_id?.apply {
                 setTitle("编辑笔记")
+            }
             setRightAction {
                 finish()
             }
@@ -40,15 +43,9 @@ class AddNoteActivity : BaseActivity() {
         }
         editContent.apply {
             setText(note.content)
-            addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(p0: Editable?) {
-                }
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    hasChange = true
-                }
-            })
+            wathch {
+                hasChange = true
+            }
         }
     }
 

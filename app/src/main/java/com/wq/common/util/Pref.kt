@@ -5,6 +5,9 @@ import kotlin.properties.Delegates
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
+/**
+ * 字段首选项存储代理
+ */
 public class Pref<T>( val default: T, val prefName:String="app_prref") : ReadWriteProperty<Any?, T> {
     val prefs by lazy { _CONTEXT.getSharedPreferences(prefName, Context.MODE_PRIVATE) }
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {
@@ -13,6 +16,8 @@ public class Pref<T>( val default: T, val prefName:String="app_prref") : ReadWri
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         putPreference(property.name, value)
     }
+
+    //读取数据
     private fun <U> findPreference(name: String, default: U?): U = with(prefs) {
         val res: Any = when (default) {
             is Long -> getLong(name, default)
@@ -20,11 +25,14 @@ public class Pref<T>( val default: T, val prefName:String="app_prref") : ReadWri
             is Int -> getInt(name, default)
             is Boolean -> getBoolean(name, default)
             is Float -> getFloat(name, default)
-            else -> throw IllegalArgumentException("This type can be saved into Preferences")
+            else -> throw IllegalArgumentException("This type can be read form Preferences")
         }
         res as U
     }
 //    private fun notNullDef
+    /**
+     * 保存到首选项
+     */
     private fun <U> putPreference(name: String, value: U) = with(prefs.edit()) {
         when (value) {
             is Long -> putLong(name, value)
