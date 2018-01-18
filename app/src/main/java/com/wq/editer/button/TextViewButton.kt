@@ -23,10 +23,7 @@ open class TextViewButton() : Button {
 
     init {
         mainLopperHandler = Handler(Looper.getMainLooper())
-        enabledColor = textView.resources.getColor(R.color.button_enabled)
-        disabledColor = textView.resources.getColor(R.color.button_disabled)
-        activatedColor = textView.resources.getColor(R.color.button_activated)
-        deactivatedColor = textView.resources.getColor(R.color.button_deactivated)
+
     }//        this.icarus = icarus;
 
     constructor(init:TextViewButton.()->Unit) : this() {
@@ -37,6 +34,10 @@ open class TextViewButton() : Button {
         this.name=name
         this.icarus=icarus
         this.popover=popover
+        enabledColor = textView.resources.getColor(R.color.button_enabled)
+        disabledColor = textView.resources.getColor(R.color.button_disabled)
+        activatedColor = textView.resources.getColor(R.color.button_activated)
+        deactivatedColor = textView.resources.getColor(R.color.button_deactivated)
     }
     override var isEnabled: Boolean=true
         get() = field

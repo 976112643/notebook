@@ -37,7 +37,8 @@ class NoteListActivity : BaseActivity() {
             }
         }
         fab.setOnClickListener {
-            startActivity<AddNoteActivity>()
+//            startActivity<AddNoteActivity>()
+            startActivity<AddRichNoteActivity>()
         }
         NetTaskService.startNetTask(this)//
 //        val viewDragMode= ViewDragMode(fab)

@@ -18,8 +18,7 @@
     <WebView
         android:id="@+id/editor"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_weight="99"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical"
         android:overScrollMode="never"
         android:gravity="center" />
@@ -27,7 +26,7 @@
     <HorizontalScrollView
         style="@style/EditorIcon"
         android:layout_width="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:scrollbars="none">
 

@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.wq.common.base.BaseActivity
 import com.wq.common.db.mode.Note
 import com.wq.common.db.realm
+import com.wq.common.util.ConversationHeightFix
 import com.wq.common.util._CONTEXT
 import com.wq.config.R
 import com.wq.editer.Icarus
@@ -51,6 +52,7 @@ class AddRichNoteActivity : BaseActivity() {
         icarus.render()
 
         initData()
+        ConversationHeightFix.setAutoSizeContent(this,editor)
     }
 
     private fun initData() {

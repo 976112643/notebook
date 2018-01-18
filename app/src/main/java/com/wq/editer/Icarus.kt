@@ -109,7 +109,7 @@ open class Icarus(var toolbar: Toolbar, protected var options: Options, protecte
             return
         }
         webView.setWebViewClient(object : WebViewClient() {
-            override fun onPageStarted(view: WebView, url: String, favicon: Bitmap) {
+            override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
             }
 
