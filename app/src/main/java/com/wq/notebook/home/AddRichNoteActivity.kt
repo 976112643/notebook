@@ -1,14 +1,18 @@
 package com.wq.notebook.home
 
+import android.graphics.Rect
 import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.ScrollView
 import android.widget.TextView
 import com.wq.common.base.BaseActivity
 import com.wq.common.db.mode.Note
+import com.wq.common.db.modify
 import com.wq.common.db.realm
+import com.wq.common.service.NetTaskService
 import com.wq.common.util.ConversationHeightFix
 import com.wq.common.util._CONTEXT
+import com.wq.common.util.empty
 import com.wq.config.R
 import com.wq.editer.Icarus
 import com.wq.editer.TextViewToolbar
@@ -34,6 +38,7 @@ class AddRichNoteActivity : BaseActivity() {
     private lateinit var note: Note
     private var hasChange = false
     lateinit var  icarus:Icarus
+
     val iconfont by lazy {
         Typeface.createFromAsset(_CONTEXT.assets, "Simditor.ttf")
     }
@@ -45,14 +50,14 @@ class AddRichNoteActivity : BaseActivity() {
             addAllowedAttributes("iframe", arrayListOf("data-type", "data-id", "class", "src", "width", "height"))
             addAllowedAttributes("a", arrayListOf("data-type", "data-id", "class", "href", "target", "title"))
         }
-        val icarus = Icarus(toolbar, options, editor)
+        icarus = Icarus(toolbar, options, editor)
         prepareToolbar(toolbar, icarus)
         icarus.loadCSS("file:///android_asset/editor.css")
-        icarus.loadJs("file:///android_asset/test.js")
+       // icarus.loadJs("file:///android_asset/test.js")
         icarus.render()
 
         initData()
-        ConversationHeightFix.setAutoSizeContent(this,editor)
+        ConversationHeightFix.setAutoSizeContent(this,layContent)
     }
 
     private fun initData() {
@@ -118,6 +123,28 @@ class AddRichNoteActivity : BaseActivity() {
         toolTxt.typeface = iconfont
         call(toolTxt)
         return toolTxt
+    }
+
+    override fun onPause() {
+        saveModify()
+        super.onPause()
+    }
+    private fun saveModify() {
+        icarus.getContent {
+
+            if (it.isEmpty() || !hasChange){
+                return@getContent
+            }
+
+            note.modify {
+                is_upload = 1
+                content = it
+                updatetime = System.currentTimeMillis()
+                realm.insertOrUpdate(note)
+            }
+            NetTaskService.startNetTask(this)//启动任务进行同步操作
+        }
+
     }
     override fun getLayoutId(): Int= R.layout.activity_add_rich_note
 }

@@ -154,7 +154,10 @@ class ConversationHeightFix
         }
 
         fun setAutoSizeContent(activity: Activity, contentView: View) {
-            ConversationHeightFix(activity, contentView)
+            contentView.post {
+                ConversationHeightFix(activity, contentView)
+            }
+
         }
 
         fun setContentHeight(height: Int, layContent: View) {

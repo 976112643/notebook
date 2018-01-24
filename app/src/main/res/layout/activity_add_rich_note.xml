@@ -15,116 +15,125 @@
         app:rightVisible="visible"
         app:title="添加笔记" />
 
-    <WebView
-        android:id="@+id/editor"
+    <LinearLayout
+        android:id="@+id/layContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:overScrollMode="never"
-        android:gravity="center" />
+        android:layout_height="match_parent"
+        android:background="@color/red"
+        android:orientation="vertical">
 
-    <HorizontalScrollView
-        style="@style/EditorIcon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:scrollbars="none">
+        <WebView
+            android:id="@+id/editor"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:overScrollMode="never"
+            android:scrollbars="vertical" />
 
-        <LinearLayout
-            android:id="@+id/layToolBar"
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            style="@style/EditorIcon"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="@android:color/white"
+            android:scrollbars="none">
 
-            <TextView
-                android:id="@+id/button_bold"
-                style="@style/EditorIcon"
-                android:text="@string/icon_bold" />
+            <LinearLayout
+                android:id="@+id/layToolBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/button_link"
-                style="@style/EditorIcon"
-                android:text="@string/icon_link" />
+                <TextView
+                    android:id="@+id/button_bold"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_bold" />
 
-            <TextView
-                android:id="@+id/button_image"
-                style="@style/EditorIcon"
-                android:text="@string/icon_image" />
+                <TextView
+                    android:id="@+id/button_link"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_link" />
 
-            <TextView
-                android:id="@+id/button_list_ol"
-                style="@style/EditorIcon"
-                android:text="@string/icon_list_ol" />
+                <TextView
+                    android:id="@+id/button_image"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_image" />
 
-            <TextView
-                android:id="@+id/button_list_ul"
-                style="@style/EditorIcon"
-                android:text="@string/icon_list_ul" />
+                <TextView
+                    android:id="@+id/button_list_ol"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_list_ol" />
 
-            <TextView
-                android:id="@+id/button_blockquote"
-                style="@style/EditorIcon"
-                android:text="@string/icon_blockquote" />
+                <TextView
+                    android:id="@+id/button_list_ul"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_list_ul" />
 
-            <TextView
-                android:id="@+id/button_hr"
-                style="@style/EditorIcon"
-                android:text="@string/icon_hr" />
+                <TextView
+                    android:id="@+id/button_blockquote"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_blockquote" />
 
-            <TextView
-                android:id="@+id/button_align_left"
-                style="@style/EditorIcon"
-                android:text="@string/icon_align_left" />
+                <TextView
+                    android:id="@+id/button_hr"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_hr" />
 
-            <TextView
-                android:id="@+id/button_align_center"
-                style="@style/EditorIcon"
-                android:text="@string/icon_align_center" />
+                <TextView
+                    android:id="@+id/button_align_left"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_align_left" />
 
-            <TextView
-                android:id="@+id/button_align_right"
-                style="@style/EditorIcon"
-                android:text="@string/icon_align_right" />
+                <TextView
+                    android:id="@+id/button_align_center"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_align_center" />
 
-            <TextView
-                android:id="@+id/button_italic"
-                style="@style/EditorIcon"
-                android:text="@string/icon_italic" />
+                <TextView
+                    android:id="@+id/button_align_right"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_align_right" />
 
-            <TextView
-                android:id="@+id/button_indent"
-                style="@style/EditorIcon"
-                android:text="@string/icon_indent" />
+                <TextView
+                    android:id="@+id/button_italic"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_italic" />
 
-            <TextView
-                android:id="@+id/button_outdent"
-                style="@style/EditorIcon"
-                android:text="@string/icon_outdent" />
+                <TextView
+                    android:id="@+id/button_indent"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_indent" />
 
-            <TextView
-                android:id="@+id/button_math"
-                style="@style/EditorIcon"
-                android:text="@string/icon_code" />
+                <TextView
+                    android:id="@+id/button_outdent"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_outdent" />
 
-            <TextView
-                android:id="@+id/button_underline"
-                style="@style/EditorIcon"
-                android:text="@string/icon_underline" />
+                <TextView
+                    android:id="@+id/button_math"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_code" />
 
-            <TextView
-                android:id="@+id/button_strike_through"
-                style="@style/EditorIcon"
-                android:text="@string/icon_strike_through" />
+                <TextView
+                    android:id="@+id/button_underline"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_underline" />
 
-            <TextView
-                android:id="@+id/button_font_scale"
-                style="@style/EditorIcon"
-                android:text="@string/icon_font" />
+                <TextView
+                    android:id="@+id/button_strike_through"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_strike_through" />
 
-            <TextView
-                android:id="@+id/button_html5"
-                style="@style/EditorIcon"
-                android:text="@string/icon_html5" />
-        </LinearLayout>
-    </HorizontalScrollView>
+                <TextView
+                    android:id="@+id/button_font_scale"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_font" />
+
+                <TextView
+                    android:id="@+id/button_html5"
+                    style="@style/EditorIcon"
+                    android:text="@string/icon_html5" />
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
 </LinearLayout>
