@@ -15,7 +15,7 @@
         app:title="笔记"
         app:rightTextColor="@color/white"
         app:leftText="废纸篓"
-        app:leftVisible="visible"
+        app:leftVisible="gone"
         app:leftTextColor="@color/white"
         />
 

@@ -27,6 +27,10 @@ class RecycleBinListActivity : BaseActivity() {
                 startActivity<AddNoteActivity>("note_id" to note_id)
             }
         }
+        adapter.setOnItemLongClickListener { _, view, position ->
+            adapter.isEditMode = !adapter.isEditMode;true
+
+        }
         titleBar.apply {
             setLeftAction{
 

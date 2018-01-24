@@ -15,8 +15,12 @@ import io.realm.Sort
  * Created by weiquan on 2017/6/22.
  */
 class RecycleBinListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R.layout.item_notice_simple_info) {
+    var isEditMode = false
+    set(value)  {//刷新适配器
+        field =value
+        notifyDataSetChanged()
+    }
     override fun convert(helper: BaseViewHolder, item: Note) {
-
         val smallContent= item.content.subSequence(0,if(item.content.length>100)100 else item.content.length).toString().replace("\n"," ")
         helper.setText(R.id.item_time, item.updatetime.date())
         helper.setText(R.id.item_content, smallContent)
@@ -24,6 +28,7 @@ class RecycleBinListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolde
         val color99 = mContext.resources.getColor(R.color.text99)
         helper.setTextColor(R.id.item_content,if(item.status==-1)color99 else color33)
         helper.setImageResource(R.id.item_cover, R.mipmap.test_img)
+        helper.setChecked(R.id.itemCbox,isEditMode);
     }
 
     init {
@@ -34,8 +39,9 @@ class RecycleBinListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolde
                 notifyDataSetChanged()
             }
         }
-
     }
+
+
 
     fun deleteItem(position:Int){
         mData[position].modify {

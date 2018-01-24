@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.wq.notebook.home.AddNoteActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity android:name="com.wq.notebook.home.RecycleBinListActivity" />
+
         <activity android:name="com.wq.notebook.home.AddRichNoteActivity" />
 
         <service android:name="com.wq.common.service.NetTaskService"/>

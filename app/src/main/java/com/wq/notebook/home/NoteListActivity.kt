@@ -32,6 +32,7 @@ class NoteListActivity : BaseActivity() {
             setLeftAction{
                 startActivity<RecycleBinListActivity>()
             }
+            setLeftIcon(-1)
             setRightAction {
                 toast("搜索")
             }
