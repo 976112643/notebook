@@ -36,7 +36,7 @@ import java.util.*
 class AddRichNoteActivity : BaseActivity() {
     private var isTop = true
     private lateinit var note: Note
-    private var hasChange = false
+    private var hasChange = true
     lateinit var  icarus:Icarus
 
     val iconfont by lazy {
