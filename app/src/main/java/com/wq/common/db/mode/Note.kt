@@ -18,6 +18,7 @@ open class Note : RealmObject() {
     @PrimaryKey
     var note_id=generateId()
     var content: String =""
+    var smallContent: String =""//缩略内容
     var addtime = System.currentTimeMillis()
     var updatetime = System.currentTimeMillis()
     var tags:RealmList<NoteTag>?=null

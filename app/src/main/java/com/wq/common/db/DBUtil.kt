@@ -1,10 +1,10 @@
 package com.wq.common.db
 
 import com.wq.common.db.mode.NoteTag
-import com.wq.common.util.LEVEL
-import com.wq.common.util._Log
+import com.wq.common.util._CONTEXT
 import io.realm.Realm
 import io.realm.RealmObject
+import org.jetbrains.anko.runOnUiThread
 
 /**
  * 给所有对象扩展Realm属性
@@ -16,17 +16,21 @@ val realm: Realm
  * 给所有对象扩展数据库事务处理函数
  */
 fun executeTransaction(transaction: (realm: Realm) -> Unit) {
-    if (realm.isInTransaction) {
-        transaction(realm)
-    } else {
-        realm.executeTransaction(transaction)
+    _CONTEXT.runOnUiThread{
+        if (realm.isInTransaction) {
+            transaction(realm)
+        } else {
+            realm.executeTransaction(transaction)
+        }
     }
 }
 
+/**
+ * 修改
+ */
 fun <T :RealmObject> T.modify(block:T.()->Unit){
     executeTransaction{
         block()
-//        addOrUpdate()
     }
 }
 

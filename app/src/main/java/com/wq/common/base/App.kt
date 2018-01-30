@@ -1,6 +1,7 @@
 package com.wq.common.base
 
 import android.app.Application
+import android.os.Handler
 import com.wq.common.service.NetTaskService
 import io.realm.Realm
 import org.jetbrains.anko.startService

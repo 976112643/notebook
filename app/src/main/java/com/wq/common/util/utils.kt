@@ -1,8 +1,11 @@
 package com.wq.common.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Looper
 import android.telephony.TelephonyManager
+import android.text.Html
 import android.util.Log
 import android.widget.TextView
 import com.google.gson.Gson
@@ -14,6 +17,9 @@ import com.wq.common.net.APIManager
 import com.wq.common.net.BaseBean
 import com.wq.common.util.FrameworkSetting.LOG_LEVEL
 import com.wq.common.util.LEVEL.*
+import org.jetbrains.anko.custom.onUiThread
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -80,7 +86,7 @@ fun <T> T?.empty(callback: () -> Unit = {}): Boolean {
 /**
  * 判断非空
  */
-fun <T> T?.notEmpty(callback: (T) -> Unit = {}): Boolean {
+fun <T> T?.notEmpty(callback: T.() -> Unit = {}): Boolean {
     if (!this.empty()) {
         callback.invoke(this as T)
         return true
@@ -94,6 +100,18 @@ fun Long.date(): String {
     } catch (e: Exception) {
         e.printStackTrace()
         ""
+    }
+}
+
+/**
+ * String 转JSONObject
+ */
+fun String.json(): JSONObject {
+    return try {
+        JSONObject(this)
+    } catch (e: JSONException) {
+        e.printStackTrace()
+        JSONObject()
     }
 }
 
@@ -138,13 +156,26 @@ fun <T> Iterable<T>.innerforEach(callback: T.() -> Unit) {
 }
 
 /**
+ * 生成缩略信息
+ */
+fun generateSmallContene(content: String,limitLength:Int =100): String {
+    return if (content.notEmpty()) {
+        val noHtmlContent = Html.fromHtml(content).toString()
+        noHtmlContent.run {
+            subSequence(0, Math.min(limitLength, length)).toString().replace("\n"," ")
+        }
+    } else ""
+}
+
+
+/**
  * 设备号
  */
+
 val _DEVICE_NO: String by lazy {
     val systemService = _CONTEXT.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
     systemService.deviceId
 }
-
 
 
 /**

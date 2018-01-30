@@ -18,7 +18,7 @@ import java.util.concurrent.LinkedBlockingQueue
 open class Icarus(var toolbar: Toolbar, protected var options: Options, protected var webView: WebView) {
     protected var callbacks = HashMap<String, (String) -> Unit>()
     protected var gson = Gson()
-    protected var content: String? = null
+     var content: String? = null
         set(value) {
             /**
              * Set HTML content to rich editor, method `render` must be called again after setContent.

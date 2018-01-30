@@ -25,7 +25,7 @@ class NoteListActivity : BaseActivity() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
         adapter.setOnItemClickListener { _, _, position ->
             adapter.getItem(position)?.apply {
-                startActivity<AddNoteActivity>("note_id" to note_id)
+                startActivity<AddRichNoteActivity>("note_id" to note_id)
             }
         }
         titleBar.apply {

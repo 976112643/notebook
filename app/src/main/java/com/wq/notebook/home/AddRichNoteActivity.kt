@@ -10,9 +10,7 @@ import com.wq.common.db.mode.Note
 import com.wq.common.db.modify
 import com.wq.common.db.realm
 import com.wq.common.service.NetTaskService
-import com.wq.common.util.ConversationHeightFix
-import com.wq.common.util._CONTEXT
-import com.wq.common.util.empty
+import com.wq.common.util.*
 import com.wq.config.R
 import com.wq.editer.Icarus
 import com.wq.editer.TextViewToolbar
@@ -63,6 +61,7 @@ class AddRichNoteActivity : BaseActivity() {
     private fun initData() {
         val note_id = intent.getStringExtra("note_id")
         note = realm.where(Note::class.java).equalTo("note_id", note_id).findFirst()?: Note()
+        icarus.content=note.content;
         titleBar.apply {
             if (note_id != null)
                 setTitle("编辑笔记")
@@ -131,14 +130,14 @@ class AddRichNoteActivity : BaseActivity() {
     }
     private fun saveModify() {
         icarus.getContent {
-
-            if (it.isEmpty() || !hasChange){
+            val noteContent=it.json().optString("content")
+            if (noteContent.isEmpty() || !hasChange){
                 return@getContent
             }
-
             note.modify {
                 is_upload = 1
-                content = it
+                content = noteContent
+                smallContent=generateSmallContene(content)
                 updatetime = System.currentTimeMillis()
                 realm.insertOrUpdate(note)
             }

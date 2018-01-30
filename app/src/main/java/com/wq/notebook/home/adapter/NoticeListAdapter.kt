@@ -17,7 +17,7 @@ import io.realm.Sort
 class NoticeListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R.layout.item_notice_simple_info) {
     override fun convert(helper: BaseViewHolder, item: Note) {
 
-        val smallContent= item.content.subSequence(0,if(item.content.length>100)100 else item.content.length).toString().replace("\n"," ")
+        var smallContent= item.smallContent
         helper.setText(R.id.item_time, item.updatetime.date())
         helper.setText(R.id.item_content, smallContent)
         val color33 = mContext.resources.getColor(R.color.text33)
