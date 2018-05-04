@@ -26,5 +26,11 @@ interface API {
     fun editNotes(@Field("notes") notes:String): Call<BaseBean<String>>
     @FormUrlEncoded
     @POST("Login/Register")
-    fun loginOrRegister(@Field("device")device:String):Call<BaseBean<UserInfo>>
+    fun loginOrRegister(@Field("device")device:String,@Field("device_brand")phone_brand:String,
+                        @Field("device_model")phone_model:String,
+                        @Field("device_man")phone_man:String
+                        ):Call<BaseBean<UserInfo>>
+    @POST("Note/Index/del")
+    @FormUrlEncoded
+    fun delNote(@Field("ids[]") ids:Array<String>): Call<BaseBean<String>>
 }

@@ -24,7 +24,12 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/titlebar_height</item>
     </style>
-
+    <!-- 默认水平分割线样式 -->
+    <style name="limit_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/limit_line</item>
+    </style>
 
     <!--编辑器,工具条样式-->
     <style name="EditorIcon">

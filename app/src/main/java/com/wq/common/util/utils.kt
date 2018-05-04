@@ -52,6 +52,10 @@ fun Any._Log(message: Any? = null, level: LEVEL = _D) {
     }
 }
 
+fun Any._L(message: Any? = null, level: LEVEL = _D) {
+    _Log(message, level)
+}
+
 /**
  * 字符串转Bean
  */
@@ -158,24 +162,38 @@ fun <T> Iterable<T>.innerforEach(callback: T.() -> Unit) {
 /**
  * 生成缩略信息
  */
-fun generateSmallContene(content: String,limitLength:Int =100): String {
+fun generateSmallContene(content: String, limitLength: Int = 100): String {
     return if (content.notEmpty()) {
         val noHtmlContent = Html.fromHtml(content).toString()
         noHtmlContent.run {
-            subSequence(0, Math.min(limitLength, length)).toString().replace("\n"," ")
+            subSequence(0, Math.min(limitLength, length)).toString().replace("\n", " ")
         }
     } else ""
 }
 
-
 /**
- * 设备号
+ * 使用指定分隔符连接集合中所有元素
  */
-
-val _DEVICE_NO: String by lazy {
-    val systemService = _CONTEXT.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-    systemService.deviceId
+inline fun <T> Iterable<T>.toString(limitStr: String = ",", callback: (T) -> String): String {
+    var tmpStr = ""
+    forEach {
+        tmpStr = tmpStr + callback.invoke(it) + limitStr
+    }
+    if (!tmpStr.isEmpty()) {
+        tmpStr.substring(0, tmpStr.length - 1)
+    }
+    return tmpStr
 }
+
+fun <T, R> Iterable<T>.list2list(callback: (T) -> R): List<R> {
+    var aimList = arrayListOf<R>()
+    forEach { aimList.add(callback.invoke(it)) }
+    return aimList;
+}
+
+//infix fun
+
+fun <T> Boolean.ternary( t1: T, t2: T) = if (this) t1 else t2
 
 
 /**

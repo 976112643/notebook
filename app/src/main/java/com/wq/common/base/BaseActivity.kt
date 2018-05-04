@@ -17,7 +17,7 @@ import com.wq.common.base.util.StatusBarUtil.checkDeviceHasNavigationBarByLollip
 /**
  * Activity 基类
  */
-abstract class BaseActivity : Activity() {
+abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (isTranslucent()) {

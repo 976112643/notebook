@@ -28,6 +28,7 @@ import java.util.*
 
 
 /**
+ * 笔记添加/编辑
  * Created by WQ on 2018/1/11.
  */
 
@@ -137,7 +138,7 @@ class AddRichNoteActivity : BaseActivity() {
             note.modify {
                 is_upload = 1
                 content = noteContent
-                smallContent=generateSmallContene(content)
+//                smallContent=generateSmallContene(content)
                 updatetime = System.currentTimeMillis()
                 realm.insertOrUpdate(note)
             }

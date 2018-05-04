@@ -1,5 +1,6 @@
 package com.wq.common.net
 
+import com.wq.common.util.ternary
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object APIManager {
     internal var request: API
-
+    val DEBUG=true
     init {
         /**
          * 配置OkHtttpClient一些东西
@@ -28,10 +29,12 @@ object APIManager {
         /**
          * 创建请求实例
          */
+
+        var baseUrl = DEBUG.ternary(
+                "http://192.168.2.137/Api/",
+                "https://manager.quanwe.top/Api/")
         val retrofit = Retrofit.Builder()
-               .baseUrl("https://manager.quanwe.top/Api/") //设置网络请求的Url地址
-//              .baseUrl("http://192.168.1.130/Api/") //设置网络请求的Url地址
-//                .baseUrl("http://192.168.31.36/Api/") //设置网络请求的Url地址
+               .baseUrl(baseUrl) //设置网络请求的Url地址
                 .addConverterFactory(GsonConverterFactory.create()) //设置数据解析器
                 .client(client)
                 .build()

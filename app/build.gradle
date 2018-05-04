@@ -23,7 +23,7 @@ android {
             minifyEnabled false
             shrinkResources false
             //Other parameters
-            debuggable false
+            debuggable true
             jniDebuggable false
             renderscriptDebuggable false
             pseudoLocalesEnabled false

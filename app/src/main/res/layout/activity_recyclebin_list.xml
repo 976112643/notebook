@@ -9,8 +9,9 @@
 
     <com.wq.common.widget.TitleBar
         android:id="@+id/titleBar"
-        style="@style/DefTitleBarStyle"
+        style="@style/BackTitleBarStyle"
         app:title="废纸篓"
+        app:rightIcon="@drawable/ic_more_vert_white_36dp"
         />
 
 

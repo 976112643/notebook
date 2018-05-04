@@ -8,6 +8,7 @@ import com.wq.common.db.mode.Note
 import com.wq.common.db.modify
 import com.wq.common.db.where
 import com.wq.common.util.date
+import com.wq.common.util.generateSmallContene
 import io.realm.Sort
 
 /**
@@ -17,7 +18,7 @@ import io.realm.Sort
 class NoticeListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R.layout.item_notice_simple_info) {
     override fun convert(helper: BaseViewHolder, item: Note) {
 
-        var smallContent= item.smallContent
+        var smallContent= item.small_content()
         helper.setText(R.id.item_time, item.updatetime.date())
         helper.setText(R.id.item_content, smallContent)
         val color33 = mContext.resources.getColor(R.color.text33)
@@ -27,18 +28,31 @@ class NoticeListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R
     }
 
     init {
-//        .notEqualTo("status",-1)
-        where<Note>().notEqualTo("status",-1).findAllSorted("updatetime", Sort.DESCENDING).apply {
+      loadPageData("")
+    }
+
+    fun loadPageData(keyword:String){
+        var realmQuery = where<Note>()
+        if(!keyword.isEmpty()){
+            realmQuery=realmQuery.like("content","*$keyword*")
+        }
+        realmQuery .notEqualTo("status",-1).findAllSorted("updatetime", Sort.DESCENDING).apply {
             setNewData(this)
             addChangeListener { t, changeSet ->
                 notifyDataSetChanged()
             }
         }
-
     }
 
-    fun deleteItem(position:Int){
-        mData[position].modify {
+    fun deleteItemUndo(note:Note?){
+        note?.modify {
+            status=0
+            is_upload=0
+        }
+    }
+
+    fun deleteItem(note:Note?){
+        note?.modify {
             status=-1
             is_upload=1
         }

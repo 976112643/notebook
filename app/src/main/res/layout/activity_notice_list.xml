@@ -10,34 +10,67 @@
     <com.wq.common.widget.TitleBar
         android:id="@+id/titleBar"
         style="@style/DefTitleBarStyle"
-        app:rightText="搜索"
-        app:rightVisible="visible"
-        app:title="笔记"
-        app:rightTextColor="@color/white"
         app:leftText="废纸篓"
-        app:leftVisible="gone"
         app:leftTextColor="@color/white"
-        />
+        app:leftVisible="gone"
+        app:rightIcon="@drawable/ic_search"
+        app:rightTextColor="@color/white"
+        app:rightVisible="visible"
+        app:title="笔记">
+
+        <LinearLayout
+            android:id="@+id/laySearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/title_background_color"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/editSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableLeft="@drawable/ic_search"
+                android:drawablePadding="5dp"
+                android:hint="请输入搜索关键字"
+                android:paddingLeft="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/imgClose"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_close" />
+        </LinearLayout>
+
+    </com.wq.common.widget.TitleBar>
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
             android:id="@+id/recyclerView"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_height="match_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            app:layout_behavior="com.wq.common.widget.behavior.ScrollAwareFABBehavior"
             android:src="@drawable/ic_add_black_24dp"
-            app:rippleColor="#cef50303"
-            />
+            app:layout_behavior="com.wq.common.widget.behavior.ScrollAwareFABBehavior"
+            app:rippleColor="#cef50303" />
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>
