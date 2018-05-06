@@ -193,7 +193,11 @@ fun <T, R> Iterable<T>.list2list(callback: (T) -> R): List<R> {
 
 //infix fun
 
+/**
+ * 伪三目运算
+ */
 fun <T> Boolean.ternary( t1: T, t2: T) = if (this) t1 else t2
+
 
 
 /**

@@ -41,7 +41,7 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
                 ACTION_DELETE -> {
                     var ids = intent.getStringArrayExtra("ids")
                     api.delNote(ids).isOK {
-                        toast(msg)
+                        shortToast(msg)
                     }
                 }
 

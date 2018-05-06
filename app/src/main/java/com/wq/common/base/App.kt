@@ -5,6 +5,9 @@ import android.os.Handler
 import com.wq.common.service.NetTaskService
 import io.realm.Realm
 import org.jetbrains.anko.startService
+import android.os.Looper
+
+
 
 /**
  * Created by WQ on 2017/5/24.

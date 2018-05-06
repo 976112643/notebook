@@ -31,7 +31,8 @@ object APIManager {
          */
 
         var baseUrl = DEBUG.ternary(
-                "http://192.168.2.137/Api/",
+//                "http://192.168.2.137/Api/",
+                "http://192.168.1.11/Api/",
                 "https://manager.quanwe.top/Api/")
         val retrofit = Retrofit.Builder()
                .baseUrl(baseUrl) //设置网络请求的Url地址
