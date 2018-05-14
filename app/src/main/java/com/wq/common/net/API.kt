@@ -33,4 +33,7 @@ interface API {
     @POST("Note/Index/del")
     @FormUrlEncoded
     fun delNote(@Field("ids[]") ids:Array<String>): Call<BaseBean<String>>
+
+    @GET("Note/Index/get_diff_notes")
+    fun getDiffNotes(@Query("ids[]") ids:Array<String>,@Query("versions[]") versions:Array<String>): Call<BaseBean<List<Note>>>
 }

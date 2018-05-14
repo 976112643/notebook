@@ -24,7 +24,16 @@ fun executeTransaction(transaction: (realm: Realm) -> Unit) {
         }
     }
 }
-
+/**
+ * 给所有对象扩展数据库事务处理函数
+ */
+fun TransactionThread(transaction: (realm: Realm) -> Unit) {
+        if (realm.isInTransaction) {
+            transaction(realm)
+        } else {
+            realm.executeTransaction(transaction)
+        }
+}
 /**
  * 修改
  */

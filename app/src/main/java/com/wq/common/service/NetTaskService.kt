@@ -3,6 +3,7 @@ package com.wq.common.service
 import android.app.IntentService
 import android.content.Context
 import android.content.Intent
+import com.wq.common.db.TransactionThread
 import com.wq.common.db.executeTransaction
 import com.wq.common.db.mode.Note
 import com.wq.common.db.modify
@@ -57,25 +58,48 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
      */
     private fun tryDownloadNotes() {
         "==============================================tryDownloadNotes 开始=============================================="._Log()
-        val findAllSorted = realm.where(Note::class.java).findAllSorted("version", Sort.DESCENDING)
-        var version = 0
-        if (findAllSorted.size > 0) {//查询当前最新版本,本地修改并不会
-            version = findAllSorted[0].version
-        }
-        var needBreak = false
-        for (i in 1..Int.MAX_VALUE) {
-            if (needBreak) break
-            api.getNewNotes(i, version).isOK {
-                if (info.empty()) {
-                    needBreak = true
-                    return@isOK
-                }
-                executeTransaction {
-                    //开启事务,存放请求到的数据
-                    realm.insertOrUpdate(info)
+        //查找不是出于待上传状态的,版本跟服务器不一致的数据
+        var alldata = realm.where(Note::class.java).notEqualTo("is_upload", 1).findAllSorted("id", Sort.DESCENDING)
+        val dataSize = alldata.size-1
+        var idsStr = StringBuilder()
+        var versionsStr = StringBuilder()
+        TransactionThread {//开启事务
+            for (i in 0..dataSize) {
+                var value = alldata[i]
+                idsStr.append(value.id).append(',')
+                versionsStr.append(value.version).append(',')
+                if ((i + 1) % 10 == 0||i==dataSize) {
+                    var ids = idsStr.split(",").toTypedArray()
+                    var versions = versionsStr.split(",").toTypedArray()
+                    api.getDiffNotes(ids, versions).isOK {
+                        //开启事务,存放请求到的数据
+                        if (info.isNotEmpty())
+                            realm.insertOrUpdate(info)
+                    }
+                    idsStr.setLength(0)
+                    versionsStr.setLength(0)
                 }
             }
         }
+//        val findAllSorted = realm.where(Note::class.java).findAllSorted("version", Sort.DESCENDING)
+//        var version = 0
+//        if (findAllSorted.size > 0) {//查询当前最新版本,本地修改并不会
+//            version = findAllSorted[0].version
+//        }
+//        var needBreak = false
+//        for (i in 1..Int.MAX_VALUE) {
+//            if (needBreak) break
+//            api.getNewNotes(i, version).isOK {
+//                if (info.empty()) {
+//                    needBreak = true
+//                    return@isOK
+//                }
+//                executeTransaction {
+//                    //开启事务,存放请求到的数据
+//                    realm.insertOrUpdate(info)
+//                }
+//            }
+//        }
         "==============================================tryDownloadNotes 完成=============================================="._Log()
     }
 
