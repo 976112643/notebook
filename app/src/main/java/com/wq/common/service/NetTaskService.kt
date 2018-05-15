@@ -64,6 +64,24 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
         val dataSize = alldata.size - 1
         var idsStr = StringBuilder()
         var versionsStr = StringBuilder()
+        if(alldata.isEmpty()){//本地没数据,同步一次所有数据
+            var needBreak = false
+            for (i in 1..Int.MAX_VALUE) {
+                if (needBreak) break
+                api.getNotes(i).isOK {
+                    if (info.empty()) {
+                        needBreak = true
+                        return@isOK
+                    }
+                    executeTransaction {
+                        //开启事务,存放请求到的数据
+                        realm.insertOrUpdate(info)
+//                    realm.copyFromRealm(info)
+                    }
+                }
+            }
+            return
+        }
         TransactionThread {
             //开启事务
             (0..dataSize)

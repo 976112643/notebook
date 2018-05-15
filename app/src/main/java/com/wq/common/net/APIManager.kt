@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object APIManager {
     internal var request: API
-    val DEBUG=true
+    val DEBUG=false
     init {
         /**
          * 配置OkHtttpClient一些东西
@@ -33,7 +33,8 @@ object APIManager {
         var baseUrl = DEBUG.ternary(
 //                "http://192.168.2.137/Api/",
                 "http://192.168.2.125/manager/Api/",
-                "https://manager.quanwe.top/Api/")
+                "https://manager.quanwe.top/Api/"
+        )
         val retrofit = Retrofit.Builder()
                .baseUrl(baseUrl) //设置网络请求的Url地址
                 .addConverterFactory(GsonConverterFactory.create()) //设置数据解析器
