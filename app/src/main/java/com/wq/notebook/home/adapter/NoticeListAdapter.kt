@@ -16,6 +16,7 @@ import io.realm.Sort
  * Created by weiquan on 2017/6/22.
  */
 class NoticeListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R.layout.item_notice_simple_info) {
+    var keyword:String=""
     override fun convert(helper: BaseViewHolder, item: Note) {
 
         var smallContent= item.small_content()
@@ -36,6 +37,7 @@ class NoticeListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R
         if(!keyword.isEmpty()){
             realmQuery=realmQuery.like("content","*$keyword*")
         }
+        this.keyword=keyword
         realmQuery .notEqualTo("status",-1).findAllSorted("updatetime", Sort.DESCENDING).apply {
             setNewData(this)
             addChangeListener { t, changeSet ->

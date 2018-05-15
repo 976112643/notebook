@@ -8,6 +8,7 @@ import com.wq.common.db.executeTransaction
 import com.wq.common.db.mode.Note
 import com.wq.common.db.modify
 import com.wq.common.db.realm
+import com.wq.common.net.BaseBean
 import com.wq.common.util.*
 import com.wq.notebook.common.mode.UserBean
 import io.realm.Sort
@@ -48,7 +49,7 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
 
             }
         } catch (e: Exception) {
-            toast(e.localizedMessage)
+            _Log(e, LEVEL._E)
         }
     }
 
@@ -60,26 +61,45 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
         "==============================================tryDownloadNotes 开始=============================================="._Log()
         //查找不是出于待上传状态的,版本跟服务器不一致的数据
         var alldata = realm.where(Note::class.java).notEqualTo("is_upload", 1).findAllSorted("id", Sort.DESCENDING)
-        val dataSize = alldata.size-1
+        val dataSize = alldata.size - 1
         var idsStr = StringBuilder()
         var versionsStr = StringBuilder()
-        TransactionThread {//开启事务
-            for (i in 0..dataSize) {
-                var value = alldata[i]
-                idsStr.append(value.id).append(',')
-                versionsStr.append(value.version).append(',')
-                if ((i + 1) % 10 == 0||i==dataSize) {
-                    var ids = idsStr.split(",").toTypedArray()
-                    var versions = versionsStr.split(",").toTypedArray()
-                    api.getDiffNotes(ids, versions).isOK {
-                        //开启事务,存放请求到的数据
-                        if (info.isNotEmpty())
-                            realm.insertOrUpdate(info)
+        TransactionThread {
+            //开启事务
+            (0..dataSize)
+                    .filter {
+                        var value = alldata[it]
+                        idsStr.append(value.id).append(',')
+                        versionsStr.append(value.version).append(',')
+                        (it + 1) % 10 == 0 || it == dataSize
                     }
-                    idsStr.setLength(0)
-                    versionsStr.setLength(0)
-                }
-            }
+                    .forEach {
+                        var ids = idsStr.split(",").toTypedArray()
+                        var versions = versionsStr.split(",").toTypedArray()
+                        api.getDiffNotes(ids, versions).isOK {
+                            //开启事务,存放请求到的数据
+                            if (info.isNotEmpty())
+                                realm.insertOrUpdate(info)
+                        }
+                        idsStr.setLength(0)
+                        versionsStr.setLength(0)
+                    }
+//            for (i in 0..dataSize) {
+//                var value = alldata[i]
+//                idsStr.append(value.id).append(',')
+//                versionsStr.append(value.version).append(',')
+//                if ((i + 1) % 10 == 0 || i == dataSize) {
+//                    var ids = idsStr.split(",").toTypedArray()
+//                    var versions = versionsStr.split(",").toTypedArray()
+//                    api.getDiffNotes(ids, versions).isOK {
+//                        //开启事务,存放请求到的数据
+//                        if (info.isNotEmpty())
+//                            realm.insertOrUpdate(info)
+//                    }
+//                    idsStr.setLength(0)
+//                    versionsStr.setLength(0)
+//                }
+//            }
         }
 //        val findAllSorted = realm.where(Note::class.java).findAllSorted("version", Sort.DESCENDING)
 //        var version = 0
@@ -110,7 +130,7 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
         result = realm.copyFromRealm(result)
         val data = ArrayList<Note>()
         result.forEach { data.add(it) }
-        api.editNotes(data.toJson()).isOK {
+        api.updateAll(data.toJson()).isOK {
             val split = toString().split(",")
             executeTransaction {
                 result.forEachIndexed { index, note ->
@@ -124,7 +144,6 @@ class NetTaskService : IntentService(NetTaskService::class.java.name + "" + NetT
             }
         }
         "==============================================tryUploadNotes 完成=============================================="._Log()
-
     }
 
     private fun tryUploadNote(note: Note) {

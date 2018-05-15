@@ -9,12 +9,14 @@
     <color name="lucency_black_33">#33000000</color>
     <color name="lucency_black_22">#22000000</color>
     <color name="lucency_black_55">#55000000</color>
+    <color name="lucency_black_cc">#cc000000</color>
     <color name="text33">#333</color>
     <color name="text66">#666</color>
     <color name="text99">#999</color>
     <color name="textcc">#ccc</color>
     <color name="red">#f14646</color>
 
+    <color name="def_gray">#8a8a8a</color>
 
     <color name="button_enabled">#333333</color>
     <color name="button_disabled">#eeeeee</color>

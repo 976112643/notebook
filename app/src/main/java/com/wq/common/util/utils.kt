@@ -198,8 +198,6 @@ fun <T, R> Iterable<T>.list2list(callback: (T) -> R): List<R> {
  */
 fun <T> Boolean.ternary( t1: T, t2: T) = if (this) t1 else t2
 
-
-
 /**
  * 为所有类扩展上下文字段，即全局上下文
  */

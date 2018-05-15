@@ -1,5 +1,6 @@
 package com.wq.common.base
 
+import android.app.Activity
 import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +13,9 @@ import android.view.ViewGroup
  */
 
 abstract class BaseFragment : Fragment() {
+    val that by lazy { activity }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(getLayoutId(),container)
+        return inflater.inflate(getLayoutId(),container,false)
     }
     abstract fun  getLayoutId():Int
 }

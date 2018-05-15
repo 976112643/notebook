@@ -1,20 +1,15 @@
 package com.wq.notebook.home
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
 import android.widget.ScrollView
-import com.wq.config.R
 import com.wq.common.base.BaseActivity
 import com.wq.common.db.mode.Note
 import com.wq.common.db.modify
 import com.wq.common.db.realm
 import com.wq.common.service.NetTaskService
 import com.wq.common.util.empty
-import com.wq.common.util.ifrun
 import com.wq.common.util.wathch
-import com.wq.common.util.wathchChange
+import com.wq.config.R
 import kotlinx.android.synthetic.main.activity_add_note.*
 
 /**

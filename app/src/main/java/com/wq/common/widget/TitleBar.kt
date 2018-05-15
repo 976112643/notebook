@@ -193,6 +193,7 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
         return this
     }
 
+
     fun setLeftIcon(@DrawableRes icon: Int): TitleBar {
         if (icon == -1) {
             val layoutParams = txtLeft.layoutParams as ViewGroup.MarginLayoutParams
