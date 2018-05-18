@@ -18,6 +18,7 @@ import com.wq.config.R
 import com.wq.notebook.home.adapter.NoticeListAdapter
 import com.wq.notebook.home.adapter.SimpleItemTouchHelper
 import com.wq.notebook.home.fragment.NoteListFragment
+import com.wq.notebook.setting.SettingsActivity
 import kotlinx.android.synthetic.main.activity_notice_list.*
 import kotlinx.android.synthetic.main.view_titlebar_simple.*
 import org.jetbrains.anko.startActivity
@@ -98,6 +99,8 @@ class NoteListActivity : BaseActivity() {
                     fragmentHelper.displayFragment(R.id.fragmentContent,NoteListFragment::class.java)
                 R.id.nav_recycle->
                     startActivity<RecycleBinListActivity>()
+                R.id.nav_setting->
+                        startActivity<SettingsActivity>()
             }
             drawerLayout.closeDrawer(Gravity.START)
             false

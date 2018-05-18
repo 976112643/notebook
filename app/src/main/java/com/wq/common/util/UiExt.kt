@@ -92,3 +92,7 @@ fun TextView.wathch(wathchChange:(p0: CharSequence?)->Unit){
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) =wathchChange(p0)
     })
 }
+
+fun View.visible(boolean: Boolean){
+    visibility=if(boolean)View.VISIBLE else View.GONE
+}

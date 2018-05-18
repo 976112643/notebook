@@ -1,25 +1,22 @@
 package com.wq.common.base
 
-import android.app.Activity
 import android.graphics.Color
-import android.graphics.Rect
-import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import com.wq.config.R
 import com.wq.common.base.util.StatusBarUtil
-import com.wq.common.base.util.StatusBarUtil.checkDeviceHasNavigationBarByKitkat
-import com.wq.common.base.util.StatusBarUtil.checkDeviceHasNavigationBarByLollipop
+import com.wq.common.util.StatusBugfixHelper
+import com.wq.config.R
 
 /**
  * Activity 基类
  */
 abstract class BaseActivity : AppCompatActivity() {
     val that by lazy { this }
+    val statusBugFix by lazy { StatusBugfixHelper().attatch(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
+        delegate.installViewFactory()
+        delegate.onCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
         if (isTranslucent()) {
             StatusBarUtil.transparencyBar(this)
@@ -31,13 +28,14 @@ abstract class BaseActivity : AppCompatActivity() {
             }
         }
         setContentView(getLayoutId())
+
         window.decorView.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
             override fun onLayoutChange(v: View?, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
                 window.decorView.removeOnLayoutChangeListener(this)
                 onViewCreated(savedInstanceState)
             }
         })
-         fixBug()
+        statusBugFix. fixBug()
     }
 
 
@@ -87,68 +85,4 @@ abstract class BaseActivity : AppCompatActivity() {
 
 
 
-    /**
-     * 修复状态栏沉浸和输入法模式冲突的问题
-     * fixBug
-     */
-    private lateinit var mChildOfContent: View
-    private var usableHeightPrevious: Int = 0
-    private lateinit var frameLayoutParams: FrameLayout.LayoutParams
-    private fun fixBug() {
-        if(!isFixInputBug())return
-        mChildOfContent = (window.decorView as ViewGroup).getChildAt(0)
-        mChildOfContent.viewTreeObserver.addOnGlobalLayoutListener { possiblyResizeChildOfContent() }
-        frameLayoutParams = mChildOfContent.layoutParams as FrameLayout.LayoutParams
-    }
-
-    /**
-     * 是否修复,出现冲突时,开启该选项
-     */
-    open protected fun  isFixInputBug(): Boolean =false
-
-    private fun possiblyResizeChildOfContent() {
-        val usableHeightNow = computeUsableHeight()
-        if (usableHeightNow != usableHeightPrevious) {
-            val usableHeightSansKeyboard = mChildOfContent.rootView.height
-            val heightDifference = usableHeightSansKeyboard - usableHeightNow
-            if (heightDifference > usableHeightSansKeyboard / 4) {
-                // 软键盘弹出
-                val navigationBarHeight = getNavigationBarHeight()
-                frameLayoutParams.height = usableHeightSansKeyboard - heightDifference + navigationBarHeight / 2
-
-            } else {
-                // 软键盘隐藏
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    if (checkDeviceHasNavigationBarByLollipop(this)) {
-                        val navigationBarHeight = getNavigationBarHeight()
-                        frameLayoutParams.height = usableHeightSansKeyboard - navigationBarHeight
-                    } else {
-                        frameLayoutParams.height = usableHeightSansKeyboard
-                    }
-                } else {
-                    if (checkDeviceHasNavigationBarByKitkat(this)) {
-                        val navigationBarHeight = getNavigationBarHeight()
-                        frameLayoutParams.height = usableHeightSansKeyboard - navigationBarHeight
-                    } else {
-                        frameLayoutParams.height = usableHeightSansKeyboard
-                    }
-                }
-            }
-            mChildOfContent.requestLayout()
-            usableHeightPrevious = usableHeightNow
-        }
-    }
-
-    private fun computeUsableHeight(): Int {
-        val r = Rect()
-        mChildOfContent.getWindowVisibleDisplayFrame(r)
-        return r.bottom - r.top// 全屏模式下： return r.bottom
-    }
-
-    private fun getNavigationBarHeight(): Int {
-        val resources = getResources()
-        val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        val height = resources.getDimensionPixelSize(resourceId)
-        return height
-    }
 }

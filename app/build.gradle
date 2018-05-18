@@ -12,14 +12,15 @@ android {
         targetSdkVersion 25
         versionCode 2
         versionName "1.0"
-        resConfigs "zh","en"
+        resConfigs "zh", "en"
         ndk {
             // 设置支持的SO库架构
             abiFilters 'armeabi', 'arm64-v8a', 'x86' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
-        debug{
+        debug {
             minifyEnabled false
             shrinkResources false
             //Other parameters
@@ -48,6 +49,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:support-vector-drawable:25.3.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'

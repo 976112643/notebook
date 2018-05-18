@@ -13,8 +13,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.wq.notebook.home.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.wq.notebook.home.NoteListActivity" android:configChanges="orientation">
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wq.notebook.home.NoteListActivity"
+            android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,12 +30,15 @@
         <activity
             android:name="com.wq.notebook.home.RecycleBinListActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name="com.wq.notebook.home.AddRichNoteActivity"
             android:screenOrientation="portrait" />
 
         <service android:name="com.wq.common.service.NetTaskService" />
+
+        <activity
+            android:name="com.wq.notebook.setting.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ItemView">
+        <attr name="iv_leftText" format="string" />
+        <attr name="iv_leftTextSize" format="dimension" />
+        <attr name="iv_leftIcon" format="reference" />
+        <attr name="iv_rightText" format="string" />
+        <attr name="iv_rightTextSize" format="dimension" />
+        <attr name="iv_rightIconShow" format="boolean" />
+        <attr name="iv_rightIcon" format="reference" />
+        <attr name="iv_rightTextColor" format="color" />
+        <attr name="iv_leftTextColor" format="color" />
+    </declare-styleable>
+</resources>
