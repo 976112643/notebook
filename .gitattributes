@@ -1,0 +1,4 @@
+*.css linguist-language=kotlin
+*.less linguist-language=kotlin
+*.js linguist-language=kotlin
+*.html linguist-language=kotlin
