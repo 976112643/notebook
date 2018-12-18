@@ -26,7 +26,7 @@ class ItemView(internal var mContext: Context, attrs: AttributeSet) : RelativeLa
         val ta = mContext.obtainStyledAttributes(attrs, R.styleable.ItemView)
         val leftIcon = ta.getDrawable(R.styleable.ItemView_iv_leftIcon)
         val  leftText = ta.getString(R.styleable.ItemView_iv_leftText)
-        val leftTextColor = ta.getColor(R.styleable.ItemView_iv_leftText, 0)
+        val leftTextColor = ta.getColor(R.styleable.ItemView_iv_leftTextColor, 0)
         val leftTextSize = ta.getDimension(R.styleable.ItemView_iv_leftTextSize,14f)
         val rightTextSize=ta.getDimension(R.styleable.ItemView_iv_rightTextSize,14f)
         val  rightText = ta.getString(R.styleable.ItemView_iv_rightText)

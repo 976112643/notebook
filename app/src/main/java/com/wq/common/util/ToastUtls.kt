@@ -6,12 +6,12 @@ import android.widget.Toast
 
 
 /**
- * toast
+ * toast 可在子线程中使用
  * Created by weiquan on 2018/5/4.
  */
 
 private val shortToast = Toast.makeText(_CONTEXT, "", Toast.LENGTH_SHORT)
-private val handler = Handler(Looper.getMainLooper())
+private val handler by lazy { Handler(_CONTEXT.mainLooper) }
 
 /**
  * 显示短Toast

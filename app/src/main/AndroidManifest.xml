@@ -39,6 +39,8 @@
         <activity
             android:name="com.wq.notebook.setting.SettingsActivity"
             android:label="@string/title_activity_settings"></activity>
+        <activity android:name="com.wq.notebook.about.AboutActivity" />
+        <activity android:name="com.wq.notebook.about.SharedAnimActivity" />
     </application>
 
 </manifest>

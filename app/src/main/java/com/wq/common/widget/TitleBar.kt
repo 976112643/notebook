@@ -312,11 +312,11 @@ open class TitleBar @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
 
-    fun FinishAction(act: Activity): ((View)->Unit) = { act?.finish() }
+    fun FinishAction(act: Activity): ((View)->Unit) = { act?.onBackPressed() }
 
     @Retention(RetentionPolicy.SOURCE)
     @Target(AnnotationTarget.VALUE_PARAMETER)
-    @IntDef(View.VISIBLE.toLong(), View.GONE.toLong())
+    @IntDef(View.VISIBLE, View.GONE)
     internal annotation class Visibility
 
     companion object {

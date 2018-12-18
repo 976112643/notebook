@@ -1,11 +1,17 @@
 package com.wq.common.base
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.wq.common.base.util.StatusBarUtil
 import com.wq.common.util.StatusBugfixHelper
+import com.wq.common.util.get
 import com.wq.config.R
 
 /**
@@ -13,11 +19,13 @@ import com.wq.config.R
  */
 abstract class BaseActivity : AppCompatActivity() {
     val that by lazy { this }
+    var eventCallback:((event:String,status:Int)->Unit)?=null
     val statusBugFix by lazy { StatusBugfixHelper().attatch(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         delegate.installViewFactory()
         delegate.onCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
+        registerLocalBoardcast()
         if (isTranslucent()) {
             StatusBarUtil.transparencyBar(this)
         }
@@ -82,7 +90,27 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun getLayoutId():Int
 
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterLocalBoardcast()
+    }
 
+    /**
+     * 事件回调
+     */
+    fun registerLocalBoardcast(){
+        LocalBroadcastManager.getInstance(that).registerReceiver(localBoardcast, IntentFilter(packageName+".localBoardcast"))
+    }
+    fun unregisterLocalBoardcast(){
+        LocalBroadcastManager.getInstance(that)
+                .unregisterReceiver(localBoardcast)
 
+    }
+    private val localBoardcast:BroadcastReceiver by lazy { object:BroadcastReceiver(){
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            p1?.let { eventCallback?.invoke(it["event"],it["status"]) }
+
+        }
+    } }
 
 }

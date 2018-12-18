@@ -120,15 +120,19 @@ fun String.json(): JSONObject {
 }
 
 inline operator fun <reified T> Intent.get(key: String): T {
-    when (T::class.java) {
+    var tClazz = T::class.java
+    var any = when (tClazz) {
         String::class.java -> getStringExtra(key)
+        Integer::class.java,
         Int::class.java -> getIntExtra(key, 0)
         Long::class.java -> getLongExtra(key, 0)
         Short::class.java -> getShortExtra(key, 0)
         Byte::class.java -> getByteExtra(key, 0)
         Boolean::class.java -> getBooleanExtra(key, false)
+        else ->
+            throw RuntimeException("该类型不支持使用Intent存取$tClazz ${Int::class.java}")
     }
-    throw RuntimeException("该类型不支持使用Intent存取")
+    return any as T
 }
 
 inline fun <reified T> getRawType() = T::class.java
@@ -173,6 +177,8 @@ fun generateSmallContene(content: String, limitLength: Int = 100): String {
 
 /**
  * 使用指定分隔符连接集合中所有元素
+ * @param limitStr 分隔符 ,默认为","
+ * @param callback 元素转字符串方法
  */
 inline fun <T> Iterable<T>.toString(limitStr: String = ",", callback: (T) -> String): String {
     var tmpStr = ""
@@ -196,7 +202,19 @@ fun <T, R> Iterable<T>.list2list(callback: (T) -> R): List<R> {
 /**
  * 伪三目运算
  */
-fun <T> Boolean.ternary( t1: T, t2: T) = if (this) t1 else t2
+fun <T> Boolean.ternary(t1: T, t2: T) = if (this) t1 else t2
+
+
+/**
+ * 睡一会
+ */
+fun Any.sleep(time:Long=100){
+   try {
+       Thread.sleep(time)
+   } catch (e:InterruptedException){
+       e.printStackTrace()
+   }
+}
 
 /**
  * 为所有类扩展上下文字段，即全局上下文

@@ -12,14 +12,14 @@ import android.view.View
 class ScrollAwareFABBehavior(context: Context, attrs: AttributeSet) : FloatingActionButton.Behavior() {
     private var mIsAnimatingOut = false
 
-    override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout?, child: FloatingActionButton?,
-                                     directTargetChild: View?, target: View?, nestedScrollAxes: Int): Boolean {
+    override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout, child: FloatingActionButton,
+                                     directTargetChild: View, target: View, nestedScrollAxes: Int): Boolean {
         // 确定是在垂直方向上滑动
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes)
     }
 
-    override fun onNestedScroll(coordinatorLayout: CoordinatorLayout?, child: FloatingActionButton,
-                                target: View?, dxConsumed: Int, dyConsumed: Int,
+    override fun onNestedScroll(coordinatorLayout: CoordinatorLayout, child: FloatingActionButton,
+                                target: View, dxConsumed: Int, dyConsumed: Int,
                                 dxUnconsumed: Int, dyUnconsumed: Int) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed)
 

@@ -7,6 +7,7 @@ import com.wq.config.R
 import com.wq.common.db.mode.Note
 import com.wq.common.db.modify
 import com.wq.common.db.where
+import com.wq.common.service.RequestStatusEvent
 import com.wq.common.util.date
 import com.wq.common.util.generateSmallContene
 import io.realm.Sort
@@ -40,6 +41,8 @@ class NoticeListAdapter constructor() : BaseQuickAdapter<Note, BaseViewHolder>(R
         this.keyword=keyword
         realmQuery .notEqualTo("status",-1).findAllSorted("updatetime", Sort.DESCENDING).apply {
             setNewData(this)
+            if(!isEmpty())
+            RequestStatusEvent.sendEvent(RequestStatusEvent.EVNET_SYN, RequestStatusEvent.STATUS_FINIAH)
             addChangeListener { t, changeSet ->
                 notifyDataSetChanged()
             }

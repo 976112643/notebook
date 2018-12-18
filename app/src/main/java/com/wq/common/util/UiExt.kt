@@ -21,6 +21,7 @@ import android.widget.TextView
  * 获取drawble对象
  */
 fun _drawable(res: Int): Drawable = _CONTEXT.resources.getDrawable(res)
+
 fun _color(res: Int): Int = _CONTEXT.resources.getColor(res)
 /**
  * 打开输入法
@@ -50,23 +51,25 @@ fun View?.closeKeyboard() {
 
     }
 }
+
 /**
  * 监听改变前
  */
-fun TextView.wathchAfter(wathchAfter:(p0: Editable?)->Unit){
+fun TextView.wathchAfter(wathchAfter: (p0: Editable?) -> Unit) {
     addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?) =wathchAfter(p0)
+        override fun afterTextChanged(p0: Editable?) = wathchAfter(p0)
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
     })
 }
+
 /**
  * 监听改变后
  */
-fun TextView.wathchBefore(wathchBefore:(p0: CharSequence?, p1: Int, p2: Int, p3: Int)->Unit){
+fun TextView.wathchBefore(wathchBefore: (p0: CharSequence?, p1: Int, p2: Int, p3: Int) -> Unit) {
     addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?){}
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) =wathchBefore(p0,p1,p2,p3)
+        override fun afterTextChanged(p0: Editable?) {}
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = wathchBefore(p0, p1, p2, p3)
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
     })
 }
@@ -74,25 +77,45 @@ fun TextView.wathchBefore(wathchBefore:(p0: CharSequence?, p1: Int, p2: Int, p3:
 /**
  * 监听改变
  */
-fun TextView.wathchChange(wathchChange:(p0: CharSequence?, p1: Int, p2: Int, p3: Int)->Unit){
+fun TextView.wathchChange(wathchChange: (p0: CharSequence?, p1: Int, p2: Int, p3: Int) -> Unit) {
     addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?){}
+        override fun afterTextChanged(p0: Editable?) {}
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) =wathchChange(p0,p1,p2,p3)
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = wathchChange(p0, p1, p2, p3)
     })
 }
 
 /**
  * 监听改变,简单参数
  */
-fun TextView.wathch(wathchChange:(p0: CharSequence?)->Unit){
+fun TextView.wathch(wathchChange: (p0: CharSequence?) -> Unit) {
     addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?){}
+        override fun afterTextChanged(p0: Editable?) {}
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) =wathchChange(p0)
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = wathchChange(p0)
     })
 }
 
-fun View.visible(boolean: Boolean){
-    visibility=if(boolean)View.VISIBLE else View.GONE
+/**
+ * 设置控件显示隐藏状态
+ * @param boolean VISIBLE or GONE
+ */
+fun View.visible(boolean: Boolean) {
+    visibility = if (boolean) View.VISIBLE else View.GONE
+}
+
+/**
+ * 设置控件显示隐藏状态
+ * @param boolean VISIBLE or INVISIBLE
+ */
+fun View.visibleSeize(boolean: Boolean) {
+    visibility = if (boolean) View.VISIBLE else View.INVISIBLE
+}
+
+fun click(onclick: (View) -> Unit,vararg views: View) {
+    views.forEach { it.setOnClickListener(onclick) }
+}
+
+fun View.click(onclick: (View) -> Unit) {
+    setOnClickListener(onclick)
 }

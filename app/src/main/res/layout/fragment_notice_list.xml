@@ -11,11 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <com.wq.common.widget.MultipleStatusView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:id="@+id/multiStatusView"
+            app:contentView="@id/recyclerView"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </com.wq.common.widget.MultipleStatusView>
+
 
 
         <android.support.design.widget.FloatingActionButton

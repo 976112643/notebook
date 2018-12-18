@@ -15,6 +15,7 @@ import com.wq.common.base.BaseActivity
 import com.wq.common.service.NetTaskService
 import com.wq.common.util.*
 import com.wq.config.R
+import com.wq.notebook.about.AboutActivity
 import com.wq.notebook.home.adapter.NoticeListAdapter
 import com.wq.notebook.home.adapter.SimpleItemTouchHelper
 import com.wq.notebook.home.fragment.NoteListFragment
@@ -115,17 +116,20 @@ class NoteListActivity : BaseActivity() {
 
             }
 
-            override fun onDrawerSlide(drawerView: View?, slideOffset: Float) {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 drawerArrowDrawable.progress=slideOffset
                 imgLeft.setImageDrawable(drawerArrowDrawable)
             }
 
-            override fun onDrawerClosed(drawerView: View?) {
+            override fun onDrawerClosed(drawerView: View) {
             }
 
-            override fun onDrawerOpened(drawerView: View?) {
+            override fun onDrawerOpened(drawerView: View) {
             }
         })
+
+//        startActivity<AboutActivity>()
+//        finish()
     }
 
 
